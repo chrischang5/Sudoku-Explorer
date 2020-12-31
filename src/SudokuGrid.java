@@ -11,12 +11,18 @@ import java.awt.Graphics2D;
 
 public class SudokuGrid extends JPanel {
     private static final int MY_DIMENSION = 500;
+    private static final int GRID_ROWS = 9;
+    private static final int GRID_COLS = 9;
+    private static Board board;
 
-    public static void main(String[] args) {
-        SudokuGrid s = new SudokuGrid();
+    public static void main(String[] args) throws BadArgumentExpection {
+        Board board = new Board();
+        board.set('1', 1, 1);
+        SudokuGrid s = new SudokuGrid(board);
     }
 
-    public SudokuGrid() {
+    public SudokuGrid(Board board) {
+        this.board = board;
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -27,6 +33,23 @@ public class SudokuGrid extends JPanel {
                 }
             }
         });
+    }
+
+    public static Board getBoard() {
+        return board;
+    }
+
+    public static int getGridRows() {
+        return GRID_ROWS;
+    }
+
+    public static int getGridCols() {
+        return GRID_COLS;
+    }
+
+
+    public static int getMyDimension() {
+        return MY_DIMENSION;
     }
 
     @Override
@@ -42,15 +65,23 @@ public class SudokuGrid extends JPanel {
         int height = getHeight() - (size * 2);
 
         int y = (getHeight() - (size * 10)) / 2;
-        for (int horz = 0; horz < 10; horz++) {
+        for (int horz = 0; horz < GRID_COLS; horz++) {
             int x = (getWidth() - (size * 10)) / 2;
-            for (int vert = 0; vert < 10; vert++) {
+            for (int vert = 0; vert < GRID_ROWS; vert++) {
                 g.drawRect(x, y, size, size);
+                if (board.get(vert, horz) == (char) board.get(vert, horz)) {
+                    System.out.println(board.get(vert, horz) + " at " + horz + " and " + vert);
+                }
                 x += size;
+
             }
             y += size;
         }
         g2d.dispose();
+    }
+
+    private void drawNumber(int num, int x, int y) {
+
     }
 
 

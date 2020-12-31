@@ -1,19 +1,17 @@
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 
 public class SudokuTest {
 
     @Test
-    public void testJUNIT() {
-        String str = "Junit is working fine";
-        assertEquals("Junit is working fine",str);
-    }
-
-    @Test
-    public void testBoardInit() {
-        int[][] expectedBoard = new int[9][9];
+    public void testBoardEquality() throws BadArgumentExpection {
+        Board expectedBoard = new Board();
         Board board = new Board();
-
+        assertEquals(board, expectedBoard);
     }
+
+
+
 }

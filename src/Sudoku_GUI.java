@@ -1,40 +1,33 @@
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.JMenu;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-
 
 public class Sudoku_GUI {
     public Board board;
     private SudokuGrid sudokuGrid;
     private JFrame frame;
-    private JPanel panel;
     private JLabel label;
+    private JMenu menu;
     private static final int MY_DIMENSION = 500;
 
 
-    public Sudoku_GUI() {
+    public Sudoku_GUI() throws BadArgumentExpection {
         this.board = new Board();
         this.frame = new JFrame(); // Window
-        this.panel = new JPanel(); // Panel
         this.label = new JLabel("Hello World!");
-        this.sudokuGrid = new SudokuGrid();
+        this.sudokuGrid = new SudokuGrid(this.board);
+        //this.menu = new JMenu(""); // Want menu to
 
-        panel.setBorder(
+        sudokuGrid.setBorder(
             BorderFactory.createEmptyBorder(MY_DIMENSION, MY_DIMENSION, MY_DIMENSION,
                 MY_DIMENSION));
-        panel.setLayout(new GridLayout(10, 10));
+        sudokuGrid.setLayout(new BorderLayout());
+        //TODO: Look into Spring Layout when adding different Solution algorithms: https://docs.oracle.com/javase/tutorial/uiswing/layout/spring.html
 
-        frame.add(panel, BorderLayout.CENTER); // Add panel
-        frame.add(label);
-        frame.add(sudokuGrid); // Add sudoku Grid
+        frame.add(sudokuGrid, BorderLayout.CENTER); // Add panel
+//        frame.add(label);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Sudoku GUI");
@@ -44,17 +37,19 @@ public class Sudoku_GUI {
 
     }
 
-    public void set(int num, int row, int col) {
-        this.board.set(num, row, col);
+    public void set(char argument, int row, int col) {
+        this.board.set(argument, row, col);
     }
 
-    public int get(int row, int col) {
+    public char get(int row, int col) {
         return this.board.get(row, col);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BadArgumentExpection {
         Sudoku_GUI s = new Sudoku_GUI();
+        s.set('9', 0, 0);
     }
+
 
 }
 
