@@ -51,6 +51,8 @@ public class Sudoku_GUI {
         return GUI_WIDTH;
     }
 
+    //TODO: Center text
+    //TODO: Figure out why bottom right cell is broken
     public void drawSudokuGrid() {
         int size = Math.min(getGuiHeight(), getGuiWidth()) / 10;
 
@@ -64,7 +66,7 @@ public class Sudoku_GUI {
                 JPanel panel = new JPanel();
                 JLabel label = new JLabel(text);
 
-                label.setFont(new Font("Verdana", 1, 20));
+                label.setFont(new Font("Verdana", Font.PLAIN, 20));
                 panel.add(label);
 
                 panel.setBorder(BorderFactory.createLineBorder(Color.black));
