@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -31,7 +32,7 @@ public class Board {
     private void initializeBoard() throws BadArgumentExpection {
         for (int c = 0; c < GRID_COLS; c++) {
             for (int r = 0; r < GRID_ROWS; r++) {
-                this.cells[r][c] = '3';
+                this.cells[r][c] = '8';
                 if (!isValid(this.cells[r][c])) {
                     throw new BadArgumentExpection("Initialization failed at (" + r + ", " + c + ").");
                 }
@@ -53,7 +54,6 @@ public class Board {
         } else {
             throw new BadArgumentExpection("Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
         }
-
     }
 
     /**

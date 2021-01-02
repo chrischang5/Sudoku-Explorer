@@ -1,86 +1,162 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-// This code is sourced from: https://stackoverflow.com/questions/34036216/drawing-java-grid-using-swing
+
 
 public class SudokuGrid extends JPanel {
-    private static final int MY_DIMENSION = 500;
+    private static final Color BG = Color.BLACK;
+    public Board board;
+    private static final int CLUSTER = 3;
+    private static final int GAP = 3;
+    private static final int GUI_HEIGHT = 750;
+    private static final int GUI_WIDTH = 750;
     private static final int GRID_ROWS = 9;
     private static final int GRID_COLS = 9;
-    private static Board board;
+    private static final float FIELD_PTS = 32f;
+    private static final Dimension DEFAULT_DIMENSIONS = new Dimension(GUI_WIDTH, GUI_HEIGHT);
+    private JTextField[][] jTextFields = new JTextField[GRID_ROWS][GRID_COLS];
+    private static ArrayList<Character> validInputs =
+            new ArrayList<>(Arrays.asList(' ', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
+
+    /**
+     * A constructor to create a SudokuGrid Object
+     * <p>
+     * Code sourced from: https://stackoverflow.com/questions/36380516/drawing-a-grid-in-a-jframe
+     */
+    public SudokuGrid() throws BadArgumentExpection {
+        this.board = new Board();
+
+        JPanel mainPanel = new JPanel(new GridLayout(CLUSTER, CLUSTER));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP));
+        mainPanel.setBackground(BG);
+        JPanel[][] panels = new JPanel[CLUSTER][CLUSTER];
+        for (int i = 0; i < panels.length; i++) {
+            for (int j = 0; j < panels[i].length; j++) {
+                panels[i][j] = new JPanel(new GridLayout(CLUSTER, CLUSTER, 1, 1));
+                panels[i][j].setBackground(Color.BLACK);
+                panels[i][j].setBorder(BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP));
+                mainPanel.add(panels[i][j]);
+            }
+        }
+
+        for (int row = 0; row < GRID_ROWS; row++) {
+            for (int col = 0; col < GRID_COLS; col++) {
+//                this.panels[row][col] = createArea(row, col);
+//                jLabels[row][col] = createLabel(row, col);
+                jTextFields[row][col] = createField(row, col);
+                int i = row / 3;
+                int j = col / 3;
+//                panels[i][j].add(this.panels[row][col]);
+//                panels[i][j].add(jLabels[row][col]);
+                panels[i][j].add(jTextFields[row][col]);
+            }
+        }
+        setLayout(new BorderLayout());
+        add(mainPanel, BorderLayout.CENTER);
+    }
+
+    /**
+     * Helper method to construct a GUI consisting of a JFrame object and SudokuGrid object
+     *
+     * @throws BadArgumentExpection if initialization fails
+     */
+
+    public static void createAndShowGUI() throws BadArgumentExpection {
+
+        SudokuGrid s = new SudokuGrid();
+
+        JFrame frame = new JFrame("Sudoku Explorer");
+        frame.setSize(DEFAULT_DIMENSIONS);
+        frame.setPreferredSize(DEFAULT_DIMENSIONS);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(s);
+        frame.setTitle("Sudoku GUI");
+
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public void set(char argument, int row, int col) throws BadArgumentExpection {
+        try {
+            this.board.set(argument, row, col);
+        } catch (BadArgumentExpection e) {
+            throw new BadArgumentExpection("Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
+        }
+    }
+
+    public char get(int row, int col) {
+        return this.board.get(row, col);
+    }
+
+    public static int getGuiHeight() {
+        return GUI_HEIGHT;
+    }
+
+    public static int getGuiWidth() {
+        return GUI_WIDTH;
+    }
+
+    private JTextArea createArea(int row, int col) {
+        JTextArea area = new JTextArea();
+        area.setFont(area.getFont().deriveFont(Font.BOLD, FIELD_PTS));
+        area.setText(String.valueOf(board.get(row, col)));
+        area.setEditable(false);
+        area.setAlignmentX(Component.CENTER_ALIGNMENT);
+        area.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        return area;
+    }
+    private JTextField createField(int row, int col) {
+        JTextField field = new JTextField();
+        field.setFont(field.getFont().deriveFont(Font.BOLD, FIELD_PTS));
+        field.setText(String.valueOf(board.get(row, col)));
+        field.setEditable(false);
+        field.setHorizontalAlignment(JTextField.CENTER);
+        field.setAlignmentX(Component.CENTER_ALIGNMENT);
+        field.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        return field;
+
+    }
+
+    private JLabel createLabel(int row, int col) {
+        JLabel label = new JLabel();
+        label.setFont(label.getFont().deriveFont(Font.BOLD, FIELD_PTS));
+        label.setText(String.valueOf(board.get(row, col)));
+        label.setForeground(Color.BLACK);
+        label.setBackground(null);
+
+        return label;
+    }
+
+    /**
+     * Helper method to test whether an input to a JTextField cell is valid
+     *
+     * @param field A JTextField containing a character from the keyboard
+     * @return True if valid, false if not valid
+     */
+
+    private boolean testInput(JTextField field) {
+        if (field.getText().toCharArray().length > 1) {
+            return false;
+        }
+        return validInputs.contains(field.getText().toCharArray()[0]);
+    }
+
 
     public static void main(String[] args) throws BadArgumentExpection {
-        Board board = new Board();
-        board.set('1', 1, 1);
-        SudokuGrid s = new SudokuGrid(board);
-    }
-
-    public SudokuGrid(Board board) {
-        this.board = board;
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                    ex.printStackTrace();
-                }
+        SwingUtilities.invokeLater(() -> {
+            try {
+                createAndShowGUI();
+            } catch (BadArgumentExpection badArgumentExpection) {
+                badArgumentExpection.printStackTrace();
             }
         });
-    }
-
-    public static Board getBoard() {
-        return board;
-    }
-
-    public static int getGridRows() {
-        return GRID_ROWS;
-    }
-
-    public static int getGridCols() {
-        return GRID_COLS;
-    }
-
-
-    public static int getMyDimension() {
-        return MY_DIMENSION;
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(MY_DIMENSION, MY_DIMENSION);
-    }
-
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g.create();
-        int size = Math.min(getWidth() - 4, getHeight() - 4) / 10;
-        int width = getWidth() - (size * 2);
-        int height = getHeight() - (size * 2);
-
-        int y = (getHeight() - (size * 10)) / 2;
-        for (int horz = 0; horz < GRID_COLS; horz++) {
-            int x = (getWidth() - (size * 10)) / 2;
-            for (int vert = 0; vert < GRID_ROWS; vert++) {
-                g.drawRect(x, y, size, size);
-                if (board.get(vert, horz) == (char) board.get(vert, horz)) {
-                    System.out.println(board.get(vert, horz) + " at " + horz + " and " + vert);
-                }
-                x += size;
-
-            }
-            y += size;
-        }
-        g2d.dispose();
-    }
-
-    private void drawNumber(int num, int x, int y) {
 
     }
 
