@@ -44,13 +44,9 @@ public class SudokuGrid extends JPanel {
 
         for (int row = 0; row < GRID_ROWS; row++) {
             for (int col = 0; col < GRID_COLS; col++) {
-//                this.panels[row][col] = createArea(row, col);
-//                jLabels[row][col] = createLabel(row, col);
                 jTextFields[row][col] = createField(row, col);
                 int i = row / 3;
                 int j = col / 3;
-//                panels[i][j].add(this.panels[row][col]);
-//                panels[i][j].add(jLabels[row][col]);
                 panels[i][j].add(jTextFields[row][col]);
             }
         }
