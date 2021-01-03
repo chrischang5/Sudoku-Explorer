@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-
 public class SudokuGrid extends JPanel {
     private static final Color BG = Color.BLACK;
     public Board board;
@@ -18,8 +17,6 @@ public class SudokuGrid extends JPanel {
     private static final float FIELD_PTS = 32f;
     private static final Dimension DEFAULT_DIMENSIONS = new Dimension(GUI_WIDTH, GUI_HEIGHT);
     private JTextField[][] jTextFields = new JTextField[GRID_ROWS][GRID_COLS];
-    private static ArrayList<Character> validInputs =
-            new ArrayList<>(Arrays.asList(' ', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
 
     /**
      * A constructor to create a SudokuGrid Object
@@ -81,11 +78,12 @@ public class SudokuGrid extends JPanel {
         try {
             this.board.set(argument, row, col);
         } catch (BadArgumentExpection e) {
-            throw new BadArgumentExpection("Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
+            throw new BadArgumentExpection(
+                "Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
         }
     }
 
-    public char get(int row, int col) {
+    public int get(int row, int col) {
         return this.board.get(row, col);
     }
 
@@ -107,10 +105,15 @@ public class SudokuGrid extends JPanel {
 
         return area;
     }
+
     private JTextField createField(int row, int col) {
         JTextField field = new JTextField();
         field.setFont(field.getFont().deriveFont(Font.BOLD, FIELD_PTS));
-        field.setText(String.valueOf(board.get(row, col)));
+        String cellValue = String.valueOf(board.get(row,col));
+        if(cellValue.equals("0")) {
+            cellValue = " ";
+        }
+        field.setText(cellValue);
         field.setEditable(false);
         field.setHorizontalAlignment(JTextField.CENTER);
         field.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -130,22 +133,23 @@ public class SudokuGrid extends JPanel {
         return label;
     }
 
-    /**
-     * Helper method to test whether an input to a JTextField cell is valid
-     *
-     * @param field A JTextField containing a character from the keyboard
-     * @return True if valid, false if not valid
-     */
+//    /**
+//     * Helper method to test whether an input to a JTextField cell is valid
+//     *
+//     * @param field A JTextField containing a character from the keyboard
+//     * @return True if valid, false if not valid
+//     */
+//
+//    private boolean testInput(JTextField field) {
+//        if (field.getText().toCharArray().length > 1) {
+//            return false;
+//        }
+//        boolean CHANGE_THIS = false;
+//        return CHANGE_THIS;
+//    }
 
-    private boolean testInput(JTextField field) {
-        if (field.getText().toCharArray().length > 1) {
-            return false;
-        }
-        return validInputs.contains(field.getText().toCharArray()[0]);
-    }
 
-
-    public static void main(String[] args) throws BadArgumentExpection {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
                 createAndShowGUI();

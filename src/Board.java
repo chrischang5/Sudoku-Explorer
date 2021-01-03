@@ -13,30 +13,30 @@ import java.util.Scanner;
 public class Board {
 
     //Input constants
-    private static final char BLANK_CHAR = ' ';
-    private static final char ONE = '1';
-    private static final char TWO = '2';
-    private static final char THREE = '3';
-    private static final char FOUR = '4';
-    private static final char FIVE = '5';
-    private static final char SIX = '6';
-    private static final char SEVEN = '7';
-    private static final char EIGHT = '8';
-    private static final char NINE = '9';
-    private static final char EMPTY_SPACE_REP = '*';
-    private static ArrayList<Character> validInputs =
+    private static final int BLANK_CHAR = ' ';
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
+    private static final int FIVE = 5;
+    private static final int SIX = 6;
+    private static final int SEVEN = 7;
+    private static final int EIGHT = 8;
+    private static final int NINE = 9;
+    private static final int EMPTY_SPACE_REP = 0;
+    private static final ArrayList<Integer> validInputs =
         new ArrayList<>(Arrays
             .asList(BLANK_CHAR, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
                 EMPTY_SPACE_REP));
 
     //Board Constants
-    private static final int TOTAL_CELLS = 81;
+    private static final int BOARD_EXPECTED_LENGTH = 81;
     private static final int GRID_ROWS = 9;
     private static final int GRID_COLS = 9;
     private static final int AREA_SIZE = 3;
 
     //Board representation and status
-    private char[][] cells;
+    private int[][] cells;
     private boolean solved;
 
     /**
@@ -45,7 +45,7 @@ public class Board {
      * @throws BadArgumentExpection if initialization fails due to invalid argument
      */
     public Board() throws BadArgumentExpection {
-        this.cells = new char[GRID_ROWS][GRID_COLS];
+        this.cells = new int[GRID_ROWS][GRID_COLS];
         this.solved = false;
         initializeBoard();
     }
@@ -71,15 +71,15 @@ public class Board {
     /**
      * This code is sourced from: https://www.youtube.com/watch?v=G_UYXzGuqvM&t=559s&ab_channel=Computerphile
      *
-     * @param row   A row number
-     * @param col   A column number
-     * @param arg   A character argument to be inserted
-     * @return
+     * @param row A row number
+     * @param col A column number
+     * @param arg A integer argument to be inserted
+     * @return True if possible to put arg at index at row, col. False if otherwise
      */
 
-    private boolean possible(int row, int col, char arg)
+    public boolean possible(int row, int col, int arg)
         throws BadArgumentExpection {
-        if (isValid(arg)) {
+        if (!isValid(arg)) {
             throw new BadArgumentExpection("This is an invalid input");
         }
 
@@ -105,8 +105,22 @@ public class Board {
         return true;
     }
 
-    public void solve() {
+    /**
+     * solve
+     */
 
+    public void solve() throws BadArgumentExpection {
+        for(int r = 0; r < GRID_ROWS; r++) {
+            for(int c = 0; c < GRID_COLS; c++) {
+                if(this.cells[r][c] == 0) {
+                    for (int n = 1; n < 9; n++) {
+                        if(possible(r, c, (char) n)) {
+//                            this.cells[r][c].set
+                        }
+                    }
+                }
+            }
+        }
 
     }
 
@@ -118,7 +132,7 @@ public class Board {
      * @param col      The col number in terms of Array indices
      * @throws BadArgumentExpection if argument is invalid
      */
-    public void set(char argument, int row, int col) throws BadArgumentExpection {
+    public void set(int argument, int row, int col) throws BadArgumentExpection {
         if (isValid(argument) && possible(row, col, argument)) {
             this.cells[row][col] = argument;
         } else {
@@ -127,21 +141,32 @@ public class Board {
         }
     }
 
+    /**
+     * String to integer array code sourced from: https://stackoverflow.com/questions/10886068/char-array-to-int-array#:~:text=String%20raw%20%3D%20%221233983543587325318%22%3B,%3D%200%3B%20i%20%3C%20raw.
+     *
+     * @param fileName the file name containing the puzzle
+     *
+     * @throws IOException
+     * @throws BadArgumentExpection
+     * @throws InvalidPuzzleException
+     */
+
     public void readPuzzle(String fileName)
         throws IOException, BadArgumentExpection, InvalidPuzzleException {
         String contentString = new String(Files.readAllBytes(Paths.get(fileName)));
-        char[] contentArray = contentString.toCharArray();
+        contentString = contentString.replaceAll("[\n|\r]", "");
+        int[] contentArray = contentString.chars().map(x -> x - '0').toArray();
 
-        if (contentArray.length != TOTAL_CELLS) {
+        if (contentArray.length != BOARD_EXPECTED_LENGTH) {
             throw new InvalidPuzzleException("Invalid puzzle. Puzzle is not of the right format.");
         }
+
         int rowIndex = 0, colIndex = 0;
-        for (char c : contentArray) {
-            if (c != EMPTY_SPACE_REP && isValid(c)) {
-                set(c, rowIndex, colIndex);
+        for (int i : contentArray) {
+            if (i != EMPTY_SPACE_REP && isValid(i)) {
+                set(i, rowIndex, colIndex);
             }
             colIndex++;
-
             if (colIndex == GRID_COLS) {
                 colIndex = 0;
                 rowIndex++;
@@ -151,23 +176,23 @@ public class Board {
     }
 
     /**
-     * Effect: Returns the character argument at (row, col) on the Board
+     * Effect: Returns the integer argument at (row, col) on the Board
      *
      * @param row The row number in terms of Array indices
      * @param col The col number in terms of Array indices
      * @return The number at the cell at row, col
      */
-    public char get(int row, int col) {
+    public int get(int row, int col) {
         return this.cells[row][col];
     }
 
     /**
      * Effect: Determines whether a character argument is valid for the Sudoku Puzzle
      *
-     * @param argument Any character argument
+     * @param argument Any integer argument
      * @return True if argument is valid, False if argument is invalid
      */
-    public boolean isValid(char argument) {
+    public boolean isValid(int argument) {
         return validInputs.contains(argument);
     }
 
