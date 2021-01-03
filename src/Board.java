@@ -59,7 +59,7 @@ public class Board {
     private void initializeBoard() throws BadArgumentExpection {
         for (int c = 0; c < GRID_COLS; c++) {
             for (int r = 0; r < GRID_ROWS; r++) {
-                this.cells[r][c] = ' ';
+                this.cells[r][c] = 0;
                 if (!isValid(this.cells[r][c])) {
                     throw new BadArgumentExpection(
                         "Initialization failed at (" + r + ", " + c + ").");
@@ -106,7 +106,7 @@ public class Board {
     }
 
     /**
-     * solve
+     * https://www.youtube.com/watch?v=G_UYXzGuqvM&t=559s&ab_channel=Computerphile
      */
 
     public void solve() throws BadArgumentExpection {
@@ -114,14 +114,15 @@ public class Board {
             for(int c = 0; c < GRID_COLS; c++) {
                 if(this.cells[r][c] == 0) {
                     for (int n = 1; n < 9; n++) {
-                        if(possible(r, c, (char) n)) {
-//                            this.cells[r][c].set
+                        if(possible(r, c, n)) {
+                            this.cells[r][c] = n;
+                            solve();
+                            this.cells[r][c] = EMPTY_SPACE_REP; // Reset it
                         }
                     }
                 }
             }
         }
-
     }
 
     /**
@@ -155,7 +156,7 @@ public class Board {
         throws IOException, BadArgumentExpection, InvalidPuzzleException {
         String contentString = new String(Files.readAllBytes(Paths.get(fileName)));
         contentString = contentString.replaceAll("[\n|\r]", "");
-        int[] contentArray = contentString.chars().map(x -> x - '0').toArray();
+        int[] contentArray = contentString.chars().map(x -> (x - '0')).toArray();
 
         if (contentArray.length != BOARD_EXPECTED_LENGTH) {
             throw new InvalidPuzzleException("Invalid puzzle. Puzzle is not of the right format.");

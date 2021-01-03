@@ -109,11 +109,14 @@ public class SudokuGrid extends JPanel {
     private JTextField createField(int row, int col) {
         JTextField field = new JTextField();
         field.setFont(field.getFont().deriveFont(Font.BOLD, FIELD_PTS));
-        String cellValue = String.valueOf(board.get(row,col));
-        if(cellValue.equals("0")) {
-            cellValue = " ";
+        int cellValue = board.get(row,col);
+
+        if(cellValue == 0) {
+            field.setText(" ");
         }
-        field.setText(cellValue);
+        else {
+            field.setText(String.valueOf(cellValue));
+        }
         field.setEditable(false);
         field.setHorizontalAlignment(JTextField.CENTER);
         field.setAlignmentX(Component.CENTER_ALIGNMENT);

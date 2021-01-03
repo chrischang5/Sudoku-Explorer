@@ -18,9 +18,6 @@ public class SudokuTest {
         assertEquals(board, expectedBoard);
     }
 
-    //TODO: Write Tests for set() and readPuzzle()
-    //Test Reading file
-
     @Test
     public void testIsValid1() throws BadArgumentExpection {
         Board board = new Board();
