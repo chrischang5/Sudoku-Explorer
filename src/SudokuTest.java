@@ -159,6 +159,7 @@ public class SudokuTest {
         assertEquals(manualBoard, loadedBoard);
     }
 
+
     @Test
     public void testReadPuzzle2() throws BadArgumentExpection, IOException, InvalidPuzzleException {
         String puzzleName0 = "puzzles/puzzle0.txt";

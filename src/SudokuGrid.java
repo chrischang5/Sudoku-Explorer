@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 public class SudokuGrid extends JPanel {
     private static final Color BG = Color.BLACK;
+    private static final String[] PUZZLES = {"puzzles/puzzle0.txt", "puzzles/puzzle1.txt"};
     public Board board;
     private static final int CLUSTER = 3;
     private static final int GAP = 3;
@@ -47,8 +48,19 @@ public class SudokuGrid extends JPanel {
                 panels[i][j].add(jTextFields[row][col]);
             }
         }
+
         setLayout(new BorderLayout());
         add(mainPanel, BorderLayout.CENTER);
+        add(new JLabel("Puzzle Select: "), BorderLayout.NORTH);
+        add(createDropDown(), BorderLayout.NORTH);
+    }
+
+    private void addMainPanel() {
+
+
+
+
+
     }
 
     /**
@@ -134,6 +146,11 @@ public class SudokuGrid extends JPanel {
         label.setBackground(null);
 
         return label;
+    }
+
+    private JComboBox<String> createDropDown() {
+        JComboBox<String> puzzleOptions = new JComboBox<>(PUZZLES);
+        return puzzleOptions;
     }
 
 //    /**

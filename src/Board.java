@@ -106,7 +106,7 @@ public class Board {
     }
 
     /**
-     * https://www.youtube.com/watch?v=G_UYXzGuqvM&t=559s&ab_channel=Computerphile
+     * Source: https://www.youtube.com/watch?v=G_UYXzGuqvM&t=559s&ab_channel=Computerphile
      */
 
     public void solve() throws BadArgumentExpection {
