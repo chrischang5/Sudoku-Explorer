@@ -148,27 +148,27 @@ public class SudokuTest {
     }
 
     @Test
-    public void testReadPuzzle1() throws BadArgumentExpection, IOException, InvalidPuzzleException {
+    public void testReadAndSetPuzzle1() throws BadArgumentExpection, IOException, InvalidPuzzleException {
         String puzzleName = "puzzles/puzzle0.txt";
         Board manualBoard = new Board();
         manualBoard.set(1, 0, 0);
         Board loadedBoard = new Board();
 
-        loadedBoard.readPuzzle(puzzleName);
+        loadedBoard.readAndSetPuzzle(puzzleName);
         assertEquals(loadedBoard, manualBoard);
         assertEquals(manualBoard, loadedBoard);
     }
 
 
     @Test
-    public void testReadPuzzle2() throws BadArgumentExpection, IOException, InvalidPuzzleException {
+    public void testReadAndSetPuzzle2() throws BadArgumentExpection, IOException, InvalidPuzzleException {
         String puzzleName0 = "puzzles/puzzle0.txt";
         String puzzleName1 = "puzzles/puzzle1.txt";
         Board board0 = new Board();
         Board board1 = new Board();
 
-        board0.readPuzzle(puzzleName0);
-        board1.readPuzzle(puzzleName1);
+        board0.readAndSetPuzzle(puzzleName0);
+        board1.readAndSetPuzzle(puzzleName1);
         assertNotEquals(board0, board1);
         assertNotEquals(board1, board0);
     }

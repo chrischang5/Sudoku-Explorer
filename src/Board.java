@@ -152,7 +152,7 @@ public class Board {
      * @throws InvalidPuzzleException
      */
 
-    public void readPuzzle(String fileName)
+    public void readAndSetPuzzle(String fileName)
         throws IOException, BadArgumentExpection, InvalidPuzzleException {
         String contentString = new String(Files.readAllBytes(Paths.get(fileName)));
         contentString = contentString.replaceAll("[\n|\r]", "");

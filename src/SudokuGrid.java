@@ -1,11 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class SudokuGrid extends JPanel {
+public class SudokuGrid extends JPanel implements ItemListener {
     private static final Color BG = Color.BLACK;
     private static final String[] PUZZLES = {"puzzles/puzzle0.txt", "puzzles/puzzle1.txt"};
     public Board board;
@@ -55,14 +60,6 @@ public class SudokuGrid extends JPanel {
         add(createDropDown(), BorderLayout.NORTH);
     }
 
-    private void addMainPanel() {
-
-
-
-
-
-    }
-
     /**
      * Helper method to construct a GUI consisting of a JFrame object and SudokuGrid object
      *
@@ -91,9 +88,10 @@ public class SudokuGrid extends JPanel {
             this.board.set(argument, row, col);
         } catch (BadArgumentExpection e) {
             throw new BadArgumentExpection(
-                "Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
+                    "Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
         }
     }
+
 
     public int get(int row, int col) {
         return this.board.get(row, col);
@@ -107,26 +105,14 @@ public class SudokuGrid extends JPanel {
         return GUI_WIDTH;
     }
 
-    private JTextArea createArea(int row, int col) {
-        JTextArea area = new JTextArea();
-        area.setFont(area.getFont().deriveFont(Font.BOLD, FIELD_PTS));
-        area.setText(String.valueOf(board.get(row, col)));
-        area.setEditable(false);
-        area.setAlignmentX(Component.CENTER_ALIGNMENT);
-        area.setAlignmentY(Component.CENTER_ALIGNMENT);
-
-        return area;
-    }
-
     private JTextField createField(int row, int col) {
         JTextField field = new JTextField();
         field.setFont(field.getFont().deriveFont(Font.BOLD, FIELD_PTS));
-        int cellValue = board.get(row,col);
+        int cellValue = board.get(row, col);
 
-        if(cellValue == 0) {
+        if (cellValue == 0) {
             field.setText(" ");
-        }
-        else {
+        } else {
             field.setText(String.valueOf(cellValue));
         }
         field.setEditable(false);
@@ -138,18 +124,10 @@ public class SudokuGrid extends JPanel {
 
     }
 
-    private JLabel createLabel(int row, int col) {
-        JLabel label = new JLabel();
-        label.setFont(label.getFont().deriveFont(Font.BOLD, FIELD_PTS));
-        label.setText(String.valueOf(board.get(row, col)));
-        label.setForeground(Color.BLACK);
-        label.setBackground(null);
-
-        return label;
-    }
-
     private JComboBox<String> createDropDown() {
         JComboBox<String> puzzleOptions = new JComboBox<>(PUZZLES);
+
+        puzzleOptions.addItemListener(this);
         return puzzleOptions;
     }
 
@@ -168,6 +146,27 @@ public class SudokuGrid extends JPanel {
 //        return CHANGE_THIS;
 //    }
 
+//    private JLabel createLabel(int row, int col) {
+//        JLabel label = new JLabel();
+//        label.setFont(label.getFont().deriveFont(Font.BOLD, FIELD_PTS));
+//        label.setText(String.valueOf(board.get(row, col)));
+//        label.setForeground(Color.BLACK);
+//        label.setBackground(null);
+//
+//        return label;
+//    }
+//
+//    private JTextArea createArea(int row, int col) {
+//        JTextArea area = new JTextArea();
+//        area.setFont(area.getFont().deriveFont(Font.BOLD, FIELD_PTS));
+//        area.setText(String.valueOf(board.get(row, col)));
+//        area.setEditable(false);
+//        area.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        area.setAlignmentY(Component.CENTER_ALIGNMENT);
+//
+//        return area;
+//    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -181,5 +180,41 @@ public class SudokuGrid extends JPanel {
     }
 
 
+    /**
+     * Invoked when an item has been selected or deselected by the user.
+     * The code written for this method performs the operations
+     * that need to occur when an item is selected (or deselected).
+     *
+     * @param e the event to be processed
+     */
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+            Object item = e.getItem();
+            try {
+                board.readAndSetPuzzle((item.toString()));
+            } catch (IOException | BadArgumentExpection ioException) {
+                ioException.printStackTrace();
+            } catch (InvalidPuzzleException invalidPuzzleException) {
+                invalidPuzzleException.printStackTrace();
+            } finally {
+                updatePuzzle(this.jTextFields);
+            }
+
+        }
+    }
+
+    private void updatePuzzle(JTextField[][] jTextFields) {
+        for (int r = 0; r < GRID_ROWS; r++) {
+            for (int c = 0; c < GRID_COLS; c++) {
+                int cellValue = board.get(r, c);
+                if (cellValue == 0) {
+                    jTextFields[r][c].setText(" ");
+                } else {
+                    jTextFields[r][c].setText(String.valueOf(cellValue));
+                }
+            }
+        }
+    }
 }
 
