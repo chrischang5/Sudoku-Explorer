@@ -1,14 +1,9 @@
-import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Board {
 
@@ -47,7 +42,7 @@ public class Board {
     public Board() throws BadArgumentExpection {
         this.cells = new int[GRID_ROWS][GRID_COLS];
         this.solved = false;
-        initializeBoard();
+        resetBoard();
     }
 
     /**
@@ -56,7 +51,7 @@ public class Board {
      * @throws BadArgumentExpection if initialization fails due to invalid argument
      */
 
-    private void initializeBoard() throws BadArgumentExpection {
+    private void resetBoard() throws BadArgumentExpection {
         for (int c = 0; c < GRID_COLS; c++) {
             for (int r = 0; r < GRID_ROWS; r++) {
                 this.cells[r][c] = 0;
@@ -106,6 +101,7 @@ public class Board {
     }
 
     /**
+     * Effect: solve() solves a sudoku puzzle
      * Source: https://www.youtube.com/watch?v=G_UYXzGuqvM&t=559s&ab_channel=Computerphile
      */
 
@@ -147,9 +143,9 @@ public class Board {
      *
      * @param fileName the file name containing the puzzle
      *
-     * @throws IOException
-     * @throws BadArgumentExpection
-     * @throws InvalidPuzzleException
+     * @throws IOException If input fails
+     * @throws BadArgumentExpection If board reset fails or invalid arguments in puzzle file
+     * @throws InvalidPuzzleException If puzzle is not of the right format or size
      */
 
     public void readAndSetPuzzle(String fileName)
@@ -157,6 +153,7 @@ public class Board {
         String contentString = new String(Files.readAllBytes(Paths.get(fileName)));
         contentString = contentString.replaceAll("[\n|\r]", "");
         int[] contentArray = contentString.chars().map(x -> (x - '0')).toArray();
+        resetBoard();
 
         if (contentArray.length != BOARD_EXPECTED_LENGTH) {
             throw new InvalidPuzzleException("Invalid puzzle. Puzzle is not of the right format.");

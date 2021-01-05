@@ -12,7 +12,8 @@ import java.util.Arrays;
 
 public class SudokuGrid extends JPanel implements ItemListener {
     private static final Color BG = Color.BLACK;
-    private static final String[] PUZZLES = {"puzzles/puzzle0.txt", "puzzles/puzzle1.txt"};
+    private static final String NOT_SELECTABLE_OPTION = "- Select a Puzzle -";
+    private static final String[] PUZZLES = {NOT_SELECTABLE_OPTION, "puzzles/puzzle0.txt", "puzzles/puzzle1.txt"};
     public Board board;
     private static final int CLUSTER = 3;
     private static final int GAP = 3;
@@ -56,7 +57,6 @@ public class SudokuGrid extends JPanel implements ItemListener {
 
         setLayout(new BorderLayout());
         add(mainPanel, BorderLayout.CENTER);
-        add(new JLabel("Puzzle Select: "), BorderLayout.NORTH);
         add(createDropDown(), BorderLayout.NORTH);
     }
 
@@ -75,6 +75,7 @@ public class SudokuGrid extends JPanel implements ItemListener {
         frame.setPreferredSize(DEFAULT_DIMENSIONS);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(s);
+//        frame.add(new JLabel("Puzzle Select: "), BorderLayout.NORTH);
         frame.setTitle("Sudoku GUI");
 
         frame.setResizable(false);
@@ -83,27 +84,13 @@ public class SudokuGrid extends JPanel implements ItemListener {
         frame.setVisible(true);
     }
 
-    public void set(char argument, int row, int col) throws BadArgumentExpection {
-        try {
-            this.board.set(argument, row, col);
-        } catch (BadArgumentExpection e) {
-            throw new BadArgumentExpection(
-                    "Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
-        }
-    }
-
-
-    public int get(int row, int col) {
-        return this.board.get(row, col);
-    }
-
-    public static int getGuiHeight() {
-        return GUI_HEIGHT;
-    }
-
-    public static int getGuiWidth() {
-        return GUI_WIDTH;
-    }
+    /**
+     * Effect: createField produces a {@code JTextField} that acts as a display for a sudoku board cell.
+     *
+     * @param row The row index which {@code JTextField} will occupy
+     * @param col The column index which {@code JTextField} will occupy
+     * @return A {@code JTextField} that will occupy the {@code JPanel} at (row, col)
+     */
 
     private JTextField createField(int row, int col) {
         JTextField field = new JTextField();
@@ -115,6 +102,7 @@ public class SudokuGrid extends JPanel implements ItemListener {
         } else {
             field.setText(String.valueOf(cellValue));
         }
+
         field.setEditable(false);
         field.setHorizontalAlignment(JTextField.CENTER);
         field.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -124,49 +112,33 @@ public class SudokuGrid extends JPanel implements ItemListener {
 
     }
 
+    /**
+     *
+     * @return
+     */
     private JComboBox<String> createDropDown() {
-        JComboBox<String> puzzleOptions = new JComboBox<>(PUZZLES);
-
+        JComboBox<String> puzzleOptions = new JComboBox<>();
         puzzleOptions.addItemListener(this);
+
+        puzzleOptions.setModel(new DefaultComboBoxModel<>() {
+            boolean selectionAllowed = true;
+            @Override
+            public void setSelectedItem(Object obj) {
+                if (!NOT_SELECTABLE_OPTION.equals(obj)) {
+                    super.setSelectedItem(obj);
+                } else if (selectionAllowed) {
+                    // Allow this just once
+                    selectionAllowed = false;
+                    super.setSelectedItem(obj);
+                }
+            }
+        });
+        for(String i: PUZZLES) {
+            puzzleOptions.addItem(i);
+        }
+
         return puzzleOptions;
     }
-
-//    /**
-//     * Helper method to test whether an input to a JTextField cell is valid
-//     *
-//     * @param field A JTextField containing a character from the keyboard
-//     * @return True if valid, false if not valid
-//     */
-//
-//    private boolean testInput(JTextField field) {
-//        if (field.getText().toCharArray().length > 1) {
-//            return false;
-//        }
-//        boolean CHANGE_THIS = false;
-//        return CHANGE_THIS;
-//    }
-
-//    private JLabel createLabel(int row, int col) {
-//        JLabel label = new JLabel();
-//        label.setFont(label.getFont().deriveFont(Font.BOLD, FIELD_PTS));
-//        label.setText(String.valueOf(board.get(row, col)));
-//        label.setForeground(Color.BLACK);
-//        label.setBackground(null);
-//
-//        return label;
-//    }
-//
-//    private JTextArea createArea(int row, int col) {
-//        JTextArea area = new JTextArea();
-//        area.setFont(area.getFont().deriveFont(Font.BOLD, FIELD_PTS));
-//        area.setText(String.valueOf(board.get(row, col)));
-//        area.setEditable(false);
-//        area.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        area.setAlignmentY(Component.CENTER_ALIGNMENT);
-//
-//        return area;
-//    }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -191,12 +163,13 @@ public class SudokuGrid extends JPanel implements ItemListener {
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             Object item = e.getItem();
+            if(item.toString().equals(NOT_SELECTABLE_OPTION)) {
+                return;
+            }
             try {
                 board.readAndSetPuzzle((item.toString()));
-            } catch (IOException | BadArgumentExpection ioException) {
+            } catch (IOException | BadArgumentExpection | InvalidPuzzleException ioException) {
                 ioException.printStackTrace();
-            } catch (InvalidPuzzleException invalidPuzzleException) {
-                invalidPuzzleException.printStackTrace();
             } finally {
                 updatePuzzle(this.jTextFields);
             }
