@@ -212,7 +212,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            boolean dummyBool = board.backtrackSolve();
+            board.backtrackSolve();
         } catch (BadArgumentExpection badArgumentExpection) {
             badArgumentExpection.printStackTrace();
         }

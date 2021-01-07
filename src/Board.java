@@ -100,7 +100,7 @@ public class Board {
         //Sector Scan
         for (int i = 0; i < AREA_SIZE; i++) {
             for (int j = 0; j < AREA_SIZE; j++) {
-                if (y0 + i != row && x0 + j != row && this.cells[y0 + i][x0 + j] == arg) {
+                if (y0 + i != row && x0 + j != col && this.cells[y0 + i][x0 + j] == arg) {
                     return false;
                 }
             }

@@ -197,7 +197,7 @@ public class SudokuTest {
 
         Board expectedOutput = new Board();
         expectedOutput.readAndSetPuzzle("puzzles/puzzle2solution.txt");
-        boolean boardBoolean = board0.backtrackSolve();
+        board0.backtrackSolve();
         board0.printBoard();
         System.out.println();
         expectedOutput.printBoard();
