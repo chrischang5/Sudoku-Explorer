@@ -20,9 +20,9 @@ public class Board {
     private static final int NINE = 9;
     private static final int EMPTY_SPACE_REP = 0;
     private static final ArrayList<Integer> validInputs =
-        new ArrayList<>(Arrays
-            .asList(BLANK_CHAR, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
-                EMPTY_SPACE_REP));
+            new ArrayList<>(Arrays
+                    .asList(BLANK_CHAR, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
+                            EMPTY_SPACE_REP));
 
     //Board Constants
     private static final int BOARD_EXPECTED_LENGTH = 81;
@@ -33,6 +33,7 @@ public class Board {
     //Board representation and status
     private int[][] cells;
     private boolean solved;
+    private static final ArrayList<int[][]> solutions = new ArrayList<>();
 
     /**
      * Effect: Creates a new instance of a Board object
@@ -57,42 +58,49 @@ public class Board {
                 this.cells[r][c] = 0;
                 if (!isValid(this.cells[r][c])) {
                     throw new BadArgumentExpection(
-                        "Initialization failed at (" + r + ", " + c + ").");
+                            "Initialization failed at (" + r + ", " + c + ").");
                 }
             }
         }
     }
 
     /**
+     * Effect: possible() determines whether an integer argument at a given cell is valid or invalid
+     * <p>
      * This code is sourced from: https://www.youtube.com/watch?v=G_UYXzGuqvM&t=559s&ab_channel=Computerphile
      *
      * @param row A row number
      * @param col A column number
      * @param arg A integer argument to be inserted
-     * @return True if possible to put arg at index at row, col. False if otherwise
+     * @return True if possible to put the integer argument at (row, col). False if otherwise
      */
 
-    public boolean possible(int row, int col, int arg)
-        throws BadArgumentExpection {
-        if (!isValid(arg)) {
-            throw new BadArgumentExpection("This is an invalid input");
+    public boolean possible(int row, int col, int arg) {
+//        if (!isValid(arg)) {
+//            throw new BadArgumentExpection("This is an invalid input");
+//        }
+
+        //Horizontal scsan
+        for (int r = 0; r < GRID_ROWS; r++) {
+            if (r != row && this.cells[r][col] == arg) {
+                return false;
+            }
         }
 
-        for (int r = 0; r < GRID_ROWS; r++) {
-            if (this.cells[r][col] == arg) {
-                return false;
-            }
-        }
+        //Vertical scan
         for (int c = 0; c < GRID_COLS; c++) {
-            if (this.cells[row][c] == arg) {
+            if (c != col && this.cells[row][c] == arg) {
                 return false;
             }
         }
+
         int x0 = Math.floorDiv(col, 3) * 3;
         int y0 = Math.floorDiv(row, 3) * 3;
+
+        //Sector Scan
         for (int i = 0; i < AREA_SIZE; i++) {
             for (int j = 0; j < AREA_SIZE; j++) {
-                if (this.cells[y0 + i][x0 + j] == arg) {
+                if (y0 + i != row && x0 + j != row && this.cells[y0 + i][x0 + j] == arg) {
                     return false;
                 }
             }
@@ -101,24 +109,30 @@ public class Board {
     }
 
     /**
-     * Effect: solve() solves a sudoku puzzle
+     * Effect: backtrackSolve() solves a sudoku puzzle with backtracking
+     * <p>
      * Source: https://www.youtube.com/watch?v=G_UYXzGuqvM&t=559s&ab_channel=Computerphile
+     * Source: https://www.youtube.com/watch?v=lK4N8E6uNr4&t=797s&ab_channel=TechWithTim
      */
 
-    public void solve() throws BadArgumentExpection {
-        for(int r = 0; r < GRID_ROWS; r++) {
-            for(int c = 0; c < GRID_COLS; c++) {
-                if(this.cells[r][c] == 0) {
-                    for (int n = 1; n < 9; n++) {
-                        if(possible(r, c, n)) {
+    public boolean backtrackSolve() throws BadArgumentExpection {
+        for (int r = 0; r < GRID_ROWS; r++) {
+            for (int c = 0; c < GRID_COLS; c++) {
+                if (this.cells[r][c] == 0) {
+                    for (int n = 1; n <= 9; n++) {
+                        if (possible(r, c, n)) {
                             this.cells[r][c] = n;
-                            solve();
+                            if(backtrackSolve()) {
+                                return true;
+                            }
                             this.cells[r][c] = EMPTY_SPACE_REP; // Reset it
                         }
                     }
+                    return false;
                 }
             }
         }
+        return true;
     }
 
     /**
@@ -134,7 +148,7 @@ public class Board {
             this.cells[row][col] = argument;
         } else {
             throw new BadArgumentExpection(
-                "Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
+                    "Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
         }
     }
 
@@ -142,14 +156,13 @@ public class Board {
      * String to integer array code sourced from: https://stackoverflow.com/questions/10886068/char-array-to-int-array#:~:text=String%20raw%20%3D%20%221233983543587325318%22%3B,%3D%200%3B%20i%20%3C%20raw.
      *
      * @param fileName the file name containing the puzzle
-     *
-     * @throws IOException If input fails
-     * @throws BadArgumentExpection If board reset fails or invalid arguments in puzzle file
+     * @throws IOException            If input fails
+     * @throws BadArgumentExpection   If board reset fails or invalid arguments in puzzle file
      * @throws InvalidPuzzleException If puzzle is not of the right format or size
      */
 
     public void readAndSetPuzzle(String fileName)
-        throws IOException, BadArgumentExpection, InvalidPuzzleException {
+            throws IOException, BadArgumentExpection, InvalidPuzzleException {
         String contentString = new String(Files.readAllBytes(Paths.get(fileName)));
         contentString = contentString.replaceAll("[\n|\r]", "");
         int[] contentArray = contentString.chars().map(x -> (x - '0')).toArray();
@@ -203,6 +216,16 @@ public class Board {
         return this.solved;
     }
 
+    public void printBoard() {
+        for (int r = 0; r < GRID_COLS; r++) {
+            for (int c = 0; c < GRID_ROWS; c++) {
+                System.out.print(this.cells[r][c] + ", ");
+            }
+            System.out.println();
+        }
+        return;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -214,11 +237,12 @@ public class Board {
                     return false;
                 }
             }
-        }
-        if (!(o instanceof Board)) {
-            return false;
-        }
 
+            if (!(o instanceof Board)) {
+                return false;
+            }
+
+        }
         return isSolved() == board.isSolved();
     }
 

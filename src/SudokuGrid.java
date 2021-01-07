@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class SudokuGrid extends JPanel implements ItemListener {
+public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     private static final Color BG = Color.BLACK;
     private static final String NOT_SELECTABLE_OPTION = "- Select a Puzzle -";
     private static final String[] PUZZLES = {NOT_SELECTABLE_OPTION, "puzzles/puzzle0.txt", "puzzles/puzzle1.txt"};
@@ -55,9 +56,16 @@ public class SudokuGrid extends JPanel implements ItemListener {
             }
         }
 
-        setLayout(new BorderLayout());
-        add(mainPanel, BorderLayout.CENTER);
-        add(createDropDown(), BorderLayout.NORTH);
+        setLayout(new BorderLayout(10, 10));
+
+        addComponents(mainPanel, this, createDropDown(), createSolveButton());
+    }
+
+    private static void addComponents(JPanel mainPanel, JPanel panel, JComboBox comboBox, JButton button) {
+        panel.add(mainPanel, BorderLayout.CENTER);
+        panel.add(comboBox, BorderLayout.NORTH);
+
+        panel.add(button, BorderLayout.EAST);
     }
 
     /**
@@ -75,7 +83,6 @@ public class SudokuGrid extends JPanel implements ItemListener {
         frame.setPreferredSize(DEFAULT_DIMENSIONS);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(s);
-//        frame.add(new JLabel("Puzzle Select: "), BorderLayout.NORTH);
         frame.setTitle("Sudoku GUI");
 
         frame.setResizable(false);
@@ -114,7 +121,7 @@ public class SudokuGrid extends JPanel implements ItemListener {
 
     /**
      *
-     * @return
+     * @return A JComboBox object that displays the puzzles
      */
     private JComboBox<String> createDropDown() {
         JComboBox<String> puzzleOptions = new JComboBox<>();
@@ -149,6 +156,13 @@ public class SudokuGrid extends JPanel implements ItemListener {
             }
         });
 
+    }
+
+    private JButton createSolveButton() {
+        JButton solveButton = new JButton();
+        solveButton.add(new JLabel("Solve Puzzle"));
+        solveButton.addActionListener(this);
+        return solveButton;
     }
 
 
@@ -188,6 +202,21 @@ public class SudokuGrid extends JPanel implements ItemListener {
                 }
             }
         }
+    }
+
+    /**
+     * Invoked when an action occurs.
+     *
+     * @param e the event to be processed
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            boolean dummyBool = board.backtrackSolve();
+        } catch (BadArgumentExpection badArgumentExpection) {
+            badArgumentExpection.printStackTrace();
+        }
+        updatePuzzle(jTextFields);
     }
 }
 
