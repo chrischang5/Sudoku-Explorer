@@ -95,7 +95,7 @@ public class SudokuTest {
     public void testPossible4() throws BadArgumentExpection {
         Board board = new Board();
         board.set(3, 1, 3);
-        assertFalse(board.possible(1, 3, 3));
+        assertTrue(board.possible(1, 3, 3));
     }
 
     @Test
@@ -146,19 +146,6 @@ public class SudokuTest {
         Board board = new Board();
         assertFalse(board.isSolved());
     }
-
-    @Test
-    public void testReadAndSetPuzzle1() throws BadArgumentExpection, IOException, InvalidPuzzleException {
-        String puzzleName = "puzzles/puzzle0.txt";
-        Board manualBoard = new Board();
-        manualBoard.set(1, 0, 0);
-        Board loadedBoard = new Board();
-
-        loadedBoard.readAndSetPuzzle(puzzleName);
-        assertEquals(loadedBoard, manualBoard);
-        assertEquals(manualBoard, loadedBoard);
-    }
-
 
     @Test
     public void testReadAndSetPuzzle2() throws BadArgumentExpection, IOException, InvalidPuzzleException {

@@ -1,15 +1,10 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 
 public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     private static final Color BG = Color.BLACK;
@@ -27,7 +22,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     private JTextField[][] jTextFields = new JTextField[GRID_ROWS][GRID_COLS];
 
     /**
-     * A constructor to create a SudokuGrid Object
+     * Effect: A constructor to create a SudokuGrid Object
      * <p>
      * Code sourced from: https://stackoverflow.com/questions/36380516/drawing-a-grid-in-a-jframe
      */
@@ -61,15 +56,24 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
         addComponents(mainPanel, this, createDropDown(), createSolveButton());
     }
 
-    private static void addComponents(JPanel mainPanel, JPanel panel, JComboBox comboBox, JButton button) {
-        panel.add(mainPanel, BorderLayout.CENTER);
-        panel.add(comboBox, BorderLayout.NORTH);
+    /**
+     * Effect: Adds all components to the main JPanel
+     *
+     * @param panel The panel to be added to mainPanel representing the board
+     * @param mainPanel The main panel that everything is placed in
+     * @param comboBox The dropdown menu that the user can pick the puzzle from
+     * @param button The solve button
+     */
 
-        panel.add(button, BorderLayout.EAST);
+    private static void addComponents(JPanel panel, JPanel mainPanel, JComboBox comboBox, JButton button) {
+        mainPanel.add(panel, BorderLayout.CENTER);
+        mainPanel.add(comboBox, BorderLayout.NORTH);
+
+        mainPanel.add(button, BorderLayout.EAST);
     }
 
     /**
-     * Helper method to construct a GUI consisting of a JFrame object and SudokuGrid object
+     * Effect: Construct a GUI consisting of a JFrame object and SudokuGrid object
      *
      * @throws BadArgumentExpection if initialization fails
      */
@@ -120,6 +124,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     }
 
     /**
+     * Effect: Creates a new dropdown menu from a list of Strings
      *
      * @return A JComboBox object that displays the puzzles
      */
@@ -134,7 +139,6 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
                 if (!NOT_SELECTABLE_OPTION.equals(obj)) {
                     super.setSelectedItem(obj);
                 } else if (selectionAllowed) {
-                    // Allow this just once
                     selectionAllowed = false;
                     super.setSelectedItem(obj);
                 }
@@ -147,6 +151,12 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
         return puzzleOptions;
     }
 
+    /**
+     * Effect: Creates and shows GUI
+     *
+     * @param args none required
+     */
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
@@ -157,6 +167,12 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
         });
 
     }
+
+    /**
+     * Effect: Creates a new JButton that will solve and update sudoku puzzle upon interaction
+     *
+     * @return a new solveButton that will be displayed on the screen
+     */
 
     private JButton createSolveButton() {
         JButton solveButton = new JButton();
@@ -191,6 +207,12 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
         }
     }
 
+    /**
+     * Effect: Updates JTextField[][] with new values of the board
+     *
+     * @param jTextFields A JTextField[][] array representing the display cells
+     */
+
     private void updatePuzzle(JTextField[][] jTextFields) {
         for (int r = 0; r < GRID_ROWS; r++) {
             for (int c = 0; c < GRID_COLS; c++) {
@@ -206,6 +228,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
 
     /**
      * Invoked when an action occurs.
+     * When button is pushed, board.backtrackSolve() is called
      *
      * @param e the event to be processed
      */

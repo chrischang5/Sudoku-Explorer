@@ -23,7 +23,6 @@ public class Board {
             new ArrayList<>(Arrays
                     .asList(BLANK_CHAR, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
                             EMPTY_SPACE_REP));
-
     //Board Constants
     private static final int BOARD_EXPECTED_LENGTH = 81;
     private static final int GRID_ROWS = 9;
@@ -33,7 +32,6 @@ public class Board {
     //Board representation and status
     private int[][] cells;
     private boolean solved;
-    private static final ArrayList<int[][]> solutions = new ArrayList<>();
 
     /**
      * Effect: Creates a new instance of a Board object
@@ -216,6 +214,9 @@ public class Board {
         return this.solved;
     }
 
+    /**
+     * Effect: printBoard() prints the board to the console
+     */
     public void printBoard() {
         for (int r = 0; r < GRID_COLS; r++) {
             for (int c = 0; c < GRID_ROWS; c++) {
