@@ -3,6 +3,8 @@ import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -192,6 +194,13 @@ public class SudokuTest {
         assertEquals(expectedOutput, board0);
     }
 
+    @Test
+    public void testInequality() throws BadArgumentExpection {
+        String hello = "hello";
+        Board board = new Board();
 
+        assertNotEquals(board,hello);
+
+    }
 
 }

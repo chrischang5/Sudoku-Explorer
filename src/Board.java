@@ -45,19 +45,14 @@ public class Board {
     }
 
     /**
-     * Effect: Initializes Board with empty cells
+     * Effect: Resets Board with empty cells
      *
-     * @throws BadArgumentExpection if initialization fails due to invalid argument
      */
 
-    private void resetBoard() throws BadArgumentExpection {
+    private void resetBoard() {
         for (int c = 0; c < GRID_COLS; c++) {
             for (int r = 0; r < GRID_ROWS; r++) {
                 this.cells[r][c] = 0;
-                if (!isValid(this.cells[r][c])) {
-                    throw new BadArgumentExpection(
-                            "Initialization failed at (" + r + ", " + c + ").");
-                }
             }
         }
     }
@@ -139,14 +134,10 @@ public class Board {
      * @param argument The character representing the number to be set at cell row, col
      * @param row      The row number in terms of Array indices
      * @param col      The col number in terms of Array indices
-     * @throws BadArgumentExpection if argument is invalid
      */
-    public void set(int argument, int row, int col) throws BadArgumentExpection {
+    public void set(int argument, int row, int col) {
         if (isValid(argument) && possible(row, col, argument)) {
             this.cells[row][col] = argument;
-        } else {
-            throw new BadArgumentExpection(
-                    "Invalid Argument " + argument + " set at (" + row + ", " + col + ").");
         }
     }
 
@@ -230,27 +221,22 @@ public class Board {
 
     @Override
     public boolean equals(Object o) {
-        Board board = (Board) o;
 
-        for (int c = 0; c < GRID_COLS; c++) {
-            for (int r = 0; r < GRID_ROWS; r++) {
-                if (!(this.cells[r][c] == board.get(r, c))) {
-                    return false;
-                }
-            }
-
-            if (!(o instanceof Board)) {
-                return false;
-            }
-
+        if (!(o instanceof Board)) {
+            return false;
         }
-        return isSolved() == board.isSolved();
-    }
+        else {
+            Board board = (Board) o;
 
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(isSolved());
-        result = 31 * result + Arrays.hashCode(cells);
-        return result;
+            for (int c = 0; c < GRID_COLS; c++) {
+                for (int r = 0; r < GRID_ROWS; r++) {
+                    if (!(this.cells[r][c] == board.get(r, c))) {
+                        return false;
+                    }
+                }
+
+            }
+            return isSolved() == board.isSolved();
+        }
     }
 }
