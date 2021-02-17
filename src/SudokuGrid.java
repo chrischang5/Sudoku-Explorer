@@ -6,6 +6,11 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 
+/**
+ * SudokuGrid class represents the GUI and contains any method responsible for creating user elements
+ * or displaying GUI components
+ */
+
 public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     private static final Color BG = Color.BLACK;
     private static final String NOT_SELECTABLE_OPTION = "- Select a Puzzle -";
@@ -26,7 +31,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
      * <p>
      * Code sourced from: https://stackoverflow.com/questions/36380516/drawing-a-grid-in-a-jframe
      */
-    public SudokuGrid() throws BadArgumentExpection {
+    public SudokuGrid() {
         this.board = new Board();
 
         JPanel mainPanel = new JPanel(new GridLayout(CLUSTER, CLUSTER));

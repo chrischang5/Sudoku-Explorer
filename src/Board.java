@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * The Board class contains all methods that interact with the internal representation of the Sudoku board
+ */
 public class Board {
 
     //Input constants
@@ -36,16 +39,15 @@ public class Board {
     /**
      * Effect: Creates a new instance of a Board object
      *
-     * @throws BadArgumentExpection if initialization fails due to invalid argument
      */
-    public Board() throws BadArgumentExpection {
+    public Board() {
         this.cells = new int[GRID_ROWS][GRID_COLS];
         this.solved = false;
         resetBoard();
     }
 
     /**
-     * Effect: Resets Board with empty cells
+     * Effect: Resets Board to contain empty cells
      *
      */
 
@@ -65,15 +67,16 @@ public class Board {
      * @param row A row number
      * @param col A column number
      * @param arg A integer argument to be inserted
-     * @return True if possible to put the integer argument at (row, col). False if otherwise
+     * @return True if possible to put the integer argument at (row, col). False otherwise
      */
 
     public boolean possible(int row, int col, int arg) {
-//        if (!isValid(arg)) {
-//            throw new BadArgumentExpection("This is an invalid input");
-//        }
 
-        //Horizontal scsan
+        //return false if space is occupied
+        if(this.cells[row][col] != 0) {
+            return false;
+        }
+        //Horizontal scan
         for (int r = 0; r < GRID_ROWS; r++) {
             if (r != row && this.cells[r][col] == arg) {
                 return false;
@@ -90,7 +93,7 @@ public class Board {
         int x0 = Math.floorDiv(col, 3) * 3;
         int y0 = Math.floorDiv(row, 3) * 3;
 
-        //Sector Scan
+        //3x3 Area scan
         for (int i = 0; i < AREA_SIZE; i++) {
             for (int j = 0; j < AREA_SIZE; j++) {
                 if (y0 + i != row && x0 + j != col && this.cells[y0 + i][x0 + j] == arg) {
@@ -215,9 +218,14 @@ public class Board {
             }
             System.out.println();
         }
-        return;
     }
 
+    /**
+     * Effect: Compares two board objects
+     *
+     * @param o An object to compare the current Board to
+     * @return True if Object o is instance of Board, has same solved status, and all cells have same contents
+     */
 
     @Override
     public boolean equals(Object o) {
