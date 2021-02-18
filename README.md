@@ -1,6 +1,6 @@
-# Sudoku-Explorer
+# Sudoku-Solver-GUI
 
-Welcome to my Sudoku GUI Explorer! This project was done to learn about the Java Swing GUI library and because I had never been the best at Sudoku, so I got a computer to solve them for me.
+Welcome to my Sudoku Solver GUI! This project was done to learn about the Java Swing GUI library and because I had never been the best at Sudoku, so I got a computer to solve them for me.
 
 Key Features:
 ## GUI Main Display
