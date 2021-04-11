@@ -24,9 +24,9 @@ public class Board {
     private static final int NINE = 9;
     private static final int EMPTY_SPACE_REP = 0;
     private static final ArrayList<Integer> validInputs =
-            new ArrayList<>(Arrays
-                    .asList(BLANK_CHAR, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
-                            EMPTY_SPACE_REP));
+        new ArrayList<>(Arrays
+            .asList(BLANK_CHAR, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
+                EMPTY_SPACE_REP));
     //Board Constants
     private static final int BOARD_EXPECTED_LENGTH = 81;
     private static final int GRID_ROWS = 9;
@@ -37,9 +37,11 @@ public class Board {
     private int[][] cells;
     private boolean solved;
 
+
+
+
     /**
      * Effect: Creates a new instance of a Board object
-     *
      */
     public Board() {
         this.cells = new int[GRID_ROWS][GRID_COLS];
@@ -49,7 +51,6 @@ public class Board {
 
     /**
      * Effect: Resets Board to contain empty cells
-     *
      */
 
     private void resetBoard() {
@@ -74,7 +75,7 @@ public class Board {
     public boolean possible(int row, int col, int arg) {
 
         //return false if space is occupied
-        if(this.cells[row][col] != 0) {
+        if (this.cells[row][col] != 0) {
             return false;
         }
         //Horizontal scan
@@ -120,7 +121,7 @@ public class Board {
                     for (int n = 1; n <= 9; n++) {
                         if (possible(r, c, n)) {
                             this.cells[r][c] = n;
-                            if(backtrackSolve()) {
+                            if (backtrackSolve()) {
                                 return true;
                             }
                             this.cells[r][c] = EMPTY_SPACE_REP; // Reset it
@@ -156,7 +157,7 @@ public class Board {
      */
 
     public void readAndSetPuzzle(String fileName)
-            throws IOException, BadArgumentExpection, InvalidPuzzleException {
+        throws IOException, BadArgumentExpection, InvalidPuzzleException {
         String contentString = new String(Files.readAllBytes(Paths.get(fileName)));
         contentString = contentString.replaceAll("[\n|\r]", "");
         int[] contentArray = contentString.chars().map(x -> (x - '0')).toArray();
@@ -235,8 +236,7 @@ public class Board {
 
         if (!(o instanceof Board)) {
             return false;
-        }
-        else {
+        } else {
             Board board = (Board) o;
 
             for (int c = 0; c < GRID_COLS; c++) {
@@ -251,7 +251,4 @@ public class Board {
         }
     }
 
-    public int[][] getCells() {
-        return cells;
-    }
 }
