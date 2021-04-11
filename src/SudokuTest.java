@@ -244,51 +244,54 @@ public class SudokuTest {
         assertNotEquals(board1, board0);
     }
 
+
     /**
+
      * Compares the result of the Sudoku solving algorithm to an expected result
      *
      * @throws BadArgumentExpection   If initialization fails due to invalid argument in file
      * @throws IOException            If file read fails
      * @throws InvalidPuzzleException If puzzle is not of the right format
      */
-    @Test
-    public void testSolve1() throws BadArgumentExpection, IOException, InvalidPuzzleException {
-        String puzzle = "puzzles/puzzle2modified.txt";
-        Board board0 = new Board();
-        board0.readAndSetPuzzle(puzzle);
+//    @Test
+//    public void testSolve1() throws BadArgumentExpection, IOException, InvalidPuzzleException {
+//        String puzzle = "puzzles/puzzle2modified.txt";
+//        Board board0 = new Board();
+//        board0.readAndSetPuzzle(puzzle);
+//
+//        Board expectedOutput = new Board();
+//        expectedOutput.readAndSetPuzzle("puzzles/puzzle2solution.txt");
+//        boolean boardBoolean = board0.backtrackSolve();
+//        board0.printBoard();
+//        System.out.println();
+//        expectedOutput.printBoard();
+//
+//        assertEquals(expectedOutput, board0);
+//    }
+//
+//    /**
+//     * Compares the result of the Sudoku solving algorithm to an expected result
+//     *
+//     * @throws BadArgumentExpection   If initialization fails due to invalid argument in file
+//     * @throws IOException            If file read fails
+//     * @throws InvalidPuzzleException If puzzle is not of the right format
+//     */
+//    @Test
+//    public void testSolve2() throws BadArgumentExpection, IOException, InvalidPuzzleException {
+//        String puzzle = "puzzles/puzzle2.txt";
+//        Board board0 = new Board();
+//        board0.readAndSetPuzzle(puzzle);
+//
+//        Board expectedOutput = new Board();
+//        expectedOutput.readAndSetPuzzle("puzzles/puzzle2solution.txt");
+//        board0.backtrackSolve();
+//        board0.printBoard();
+//        System.out.println();
+//        expectedOutput.printBoard();
+//
+//        assertEquals(expectedOutput, board0);
+//    }
 
-        Board expectedOutput = new Board();
-        expectedOutput.readAndSetPuzzle("puzzles/puzzle2solution.txt");
-        boolean boardBoolean = board0.backtrackSolve();
-        board0.printBoard();
-        System.out.println();
-        expectedOutput.printBoard();
-
-        assertEquals(expectedOutput, board0);
-    }
-
-    /**
-     * Compares the result of the Sudoku solving algorithm to an expected result
-     *
-     * @throws BadArgumentExpection   If initialization fails due to invalid argument in file
-     * @throws IOException            If file read fails
-     * @throws InvalidPuzzleException If puzzle is not of the right format
-     */
-    @Test
-    public void testSolve2() throws BadArgumentExpection, IOException, InvalidPuzzleException {
-        String puzzle = "puzzles/puzzle2.txt";
-        Board board0 = new Board();
-        board0.readAndSetPuzzle(puzzle);
-
-        Board expectedOutput = new Board();
-        expectedOutput.readAndSetPuzzle("puzzles/puzzle2solution.txt");
-        board0.backtrackSolve();
-        board0.printBoard();
-        System.out.println();
-        expectedOutput.printBoard();
-
-        assertEquals(expectedOutput, board0);
-    }
 
     /**
      * Compares an inequality between a non-Board object and a Board object

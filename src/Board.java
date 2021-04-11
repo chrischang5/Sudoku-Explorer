@@ -1,3 +1,4 @@
+import javax.swing.JTextField;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -111,7 +112,8 @@ public class Board {
      * Source: https://www.youtube.com/watch?v=lK4N8E6uNr4&t=797s&ab_channel=TechWithTim
      */
 
-    public boolean backtrackSolve() throws BadArgumentExpection {
+    public boolean backtrackSolve()
+        throws BadArgumentExpection {
         for (int r = 0; r < GRID_ROWS; r++) {
             for (int c = 0; c < GRID_COLS; c++) {
                 if (this.cells[r][c] == 0) {
@@ -168,6 +170,7 @@ public class Board {
         for (int i : contentArray) {
             if (i != EMPTY_SPACE_REP && isValid(i)) {
                 set(i, rowIndex, colIndex);
+
             }
             colIndex++;
             if (colIndex == GRID_COLS) {
@@ -246,5 +249,9 @@ public class Board {
             }
             return isSolved() == board.isSolved();
         }
+    }
+
+    public int[][] getCells() {
+        return cells;
     }
 }

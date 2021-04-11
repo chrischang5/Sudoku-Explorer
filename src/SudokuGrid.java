@@ -14,7 +14,8 @@ import java.io.IOException;
 public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     private static final Color BG = Color.BLACK;
     private static final String NOT_SELECTABLE_OPTION = "- Select a Puzzle -";
-    private static final String[] PUZZLES = {NOT_SELECTABLE_OPTION, "puzzles/puzzle0.txt", "puzzles/puzzle1.txt"};
+    private static final String[] PUZZLES =
+        {NOT_SELECTABLE_OPTION, "puzzles/puzzle0.txt", "puzzles/puzzle1.txt"};
     public Board board;
     private static final int CLUSTER = 3;
     private static final int GAP = 3;
@@ -25,6 +26,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     private static final float FIELD_PTS = 32f;
     private static final Dimension DEFAULT_DIMENSIONS = new Dimension(GUI_WIDTH, GUI_HEIGHT);
     private JTextField[][] jTextFields = new JTextField[GRID_ROWS][GRID_COLS];
+
 
     /**
      * Effect: A constructor to create a SudokuGrid Object
@@ -64,13 +66,14 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     /**
      * Effect: Adds all components to the main JPanel
      *
-     * @param panel The panel to be added to mainPanel representing the board
+     * @param panel     The panel to be added to mainPanel representing the board
      * @param mainPanel The main panel that everything is placed in
-     * @param comboBox The dropdown menu that the user can pick the puzzle from
-     * @param button The solve button
+     * @param comboBox  The dropdown menu that the user can pick the puzzle from
+     * @param button    The solve button
      */
 
-    private static void addComponents(JPanel panel, JPanel mainPanel, JComboBox comboBox, JButton button) {
+    private static void addComponents(JPanel panel, JPanel mainPanel, JComboBox comboBox,
+                                      JButton button) {
         mainPanel.add(panel, BorderLayout.CENTER);
         mainPanel.add(comboBox, BorderLayout.NORTH);
 
@@ -115,11 +118,12 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
 
         if (cellValue == 0) {
             field.setText(" ");
+            field.setEditable(true);
         } else {
             field.setText(String.valueOf(cellValue));
+            field.setEditable(false);
         }
 
-        field.setEditable(false);
         field.setHorizontalAlignment(JTextField.CENTER);
         field.setAlignmentX(Component.CENTER_ALIGNMENT);
         field.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -139,6 +143,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
 
         puzzleOptions.setModel(new DefaultComboBoxModel<>() {
             boolean selectionAllowed = true;
+
             @Override
             public void setSelectedItem(Object obj) {
                 if (!NOT_SELECTABLE_OPTION.equals(obj)) {
@@ -149,7 +154,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
                 }
             }
         });
-        for(String i: PUZZLES) {
+        for (String i : PUZZLES) {
             puzzleOptions.addItem(i);
         }
 
@@ -198,7 +203,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
             Object item = e.getItem();
-            if(item.toString().equals(NOT_SELECTABLE_OPTION)) {
+            if (item.toString().equals(NOT_SELECTABLE_OPTION)) {
                 return;
             }
             try {
@@ -206,7 +211,7 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
             } catch (IOException | BadArgumentExpection | InvalidPuzzleException ioException) {
                 ioException.printStackTrace();
             } finally {
-                updatePuzzle(this.jTextFields);
+                initializePuzzle(this.jTextFields);
             }
 
         }
@@ -218,33 +223,65 @@ public class SudokuGrid extends JPanel implements ItemListener, ActionListener {
      * @param jTextFields A JTextField[][] array representing the display cells
      */
 
-    private void updatePuzzle(JTextField[][] jTextFields) {
+    private void checkPuzzle(JTextField[][] jTextFields) {
         for (int r = 0; r < GRID_ROWS; r++) {
             for (int c = 0; c < GRID_COLS; c++) {
                 int cellValue = board.get(r, c);
-                if (cellValue == 0) {
-                    jTextFields[r][c].setText(" ");
-                } else {
-                    jTextFields[r][c].setText(String.valueOf(cellValue));
+                //If TextField is not empty, verify user's answers
+                if (jTextFields[r][c].getText() != " ") {
+
+                    if (cellValue == Integer.valueOf(jTextFields[r][c].getText())) {
+                        jTextFields[r][c].setForeground(Color.GREEN);
+                    } else {
+                        jTextFields[r][c].setText(String.valueOf(cellValue));
+                        jTextFields[r][c].setForeground(Color.RED);
+                    }
+                }
+                else {
+                    jTextFields[r][c].setText("?");
                 }
             }
         }
     }
 
-    /**
-     * Invoked when an action occurs.
-     * When button is pushed, board.backtrackSolve() is called
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        try {
-            board.backtrackSolve();
-        } catch (BadArgumentExpection badArgumentExpection) {
-            badArgumentExpection.printStackTrace();
+        /**
+         * Effect: Updates JTextField[][] with new values of the board. Called when puzzle is first set
+         *         to set pre-defined puzzle cells as unedittable
+         *
+         * @param jTextFields A JTextField[][] array representing the display cells
+         */
+
+        private void initializePuzzle (JTextField[][]jTextFields){
+            for (int r = 0; r < GRID_ROWS; r++) {
+                for (int c = 0; c < GRID_COLS; c++) {
+                    int cellValue = board.get(r, c);
+                    if (cellValue == 0) {
+                        jTextFields[r][c].setText(" ");
+                        jTextFields[r][c].setEditable(true);
+                    } else {
+                        jTextFields[r][c].setText(String.valueOf(cellValue));
+                        jTextFields[r][c].setEditable(false);
+                    }
+                }
+            }
         }
-        updatePuzzle(jTextFields);
+
+        /**
+         * Invoked when an action occurs.
+         * When button is pushed, board.backtrackSolve() is called
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void actionPerformed (ActionEvent e){
+            try {
+                board.backtrackSolve();
+            } catch (BadArgumentExpection badArgumentExpection) {
+                badArgumentExpection.printStackTrace();
+            }
+            checkPuzzle(jTextFields);
+        }
+
+
     }
-}
 
