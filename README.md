@@ -1,6 +1,6 @@
 # Sudoku-Solver-GUI
 
-Welcome to my Sudoku Solver GUI! This project was done to learn about the Java Swing GUI library, how to write event handlers, and to explore the game of Sudoku. After all, I was never the best at Sudoku, so computer to solve them for me.
+Welcome to my Sudoku Solver GUI! This project was done to learn about the Java Swing GUI library, how to write event handlers, and to explore the game of Sudoku. After all, I was never the best at Sudoku, so I got a computer to solve them for me.
 
 This document details information on how to run, modify, and explore the code that made this application a reality. Currently, a JAR executable file is not avaiable, as more additions will be added to this project in the future. 
 ___
