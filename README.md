@@ -44,7 +44,7 @@ java version "14.0.2" 2020-07-14
 Java(TM) SE Runtime Environment (build 14.0.2+12-46)
 Java HotSpot(TM) 64-Bit Server VM (build 14.0.2+12-46, mixed mode, sharing)
 ```
-Input
+Input:
 ```bash
 javac -version
 ```
@@ -55,7 +55,7 @@ javac 14.0.2
 
 ### Installation
 
-1. Clone the application repository into any directory of your choosing by running using Git Bash
+1. Clone the GitHub repository into any directory of your choosing by running the following command in Git Bash.
 ```bash
   git clone https://github.com/chrischang5/Sudoku-Solver-GUI.git
 ```
