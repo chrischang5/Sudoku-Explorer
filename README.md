@@ -60,7 +60,7 @@ ___
   git clone https://github.com/chrischang5/Sudoku-Solver-GUI.git
 ```
 2. Using a File Explorer, navigate to the chosen directory. There you will find a newly created folder called "Sudoku-Solver-GUI".
-3. If you included context menu options in the IntelliJ IDEA installation process, right click "Sudoku-Solver-GUI" and choose to open the folder using IntelliJ IDEA. Now this is runnable
+3. If you included context menu options in the IntelliJ IDEA installation process, right click "Sudoku-Solver-GUI" and choose to open the folder using IntelliJ IDEA. Now this is runnable.
 - If there was no option to open using IntelliJ IDEA, run IntelliJ IDEA. 
 - Select File > Open, navigate to the "Sudoku-Solver-GUI" folder and select it.
 
@@ -80,6 +80,7 @@ The dropdown menu displays the available puzzles in the GUI. The program current
 ![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/dropdownMenu.png)
 
 Choose any of the listed puzzles in the dropdown menu. Once chosen, the result is displayed on the grid! Note that shaded cells cannot be changed by the player.
+
 ![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/puzzle0demo.png)
 
 ### How to Play
@@ -90,11 +91,13 @@ The non-shaded cells are yours to interact with! Enter your guesses in the form 
 
 #### Check Button
 At any point, click the ```Check Puzzle``` button to determine whether your guess is right or wrong. The display will mark the guess as Green if correct and Red if wrong.
+
 ![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/checkpuzzleResult.png)
 ![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/checkpuzzleResultwrong.png)
 
 #### Solve Button
 At any point, click the ```Solve Button``` button to mark your work. The display will mark any solved computer-generated values as Blue, mark any correct guess Green, and mark any wrong guess Red.
+
 ![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/solvepuzzleResult.png)
 
 #### Reset Button
