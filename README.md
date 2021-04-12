@@ -68,24 +68,43 @@ ___
 ___
 Using IntelliJ IDEA's project explorer, navigate to ```src\main\SudokuGrid.java```. Run it by using the keyboard shortcut ```Ctrl + Shift + F10``` or by navigating to the ```SudokuTest.java```, right clicking, and selecting Run marked with a green play button.
 
-### Using the Program
+## Using the Program
 ___
 ![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/mainDisplay.png)
 
 The following section details how to use the program and interact with the GUI elements.
 
-#### Selecting Puzzles
+### Selecting Puzzles
 ![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/dropdownMenu.png)
 The dropdown menu displays the available puzzles in the GUI. The program currently comes pre-programmed with three puzzles. While the first two are elementary, the last one is sourced from [this research paper](http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html). Even with more difficult puzzles, the Sudoku Solver will be able to find a solution!
 
 Choose any of the listed puzzles in the dropdown menu. Once chosen, the result is displayed on the grid! Note that shaded cells cannot be changed by the player.
-
 ![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/puzzle0demo.png)
 
-#### Playing with Puzzles
+### Playing the Puzzles
+#### Entering Guesses
 The non-shaded cells are yours to interact with! Enter your guesses in the form of numbers by first selecting the cell, then typing your guess.
 
 ![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/interactive_boxes.png)
+
+#### Check Button
+At any point, click the ```Check Puzzle``` button to determine whether your guess is right or wrong. The display will mark the guess as Green if correct and Red if wrong.
+![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/checkpuzzleResult.png)
+![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/checkpuzzleResultwrong.png)
+
+#### Solve Button
+At any point, click the ```Solve Button``` button to mark your work. The display will mark any solved computer-generated values as Blue, mark any correct guess Green, and mark any wrong guess Red.
+![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/solvepuzzleResult.png)
+
+#### Reset Button
+At any point, click the ```Reset Button``` button to clear your work and reset the puzzle.
+
+### Looking Forward
+I'm pushing to make this project better and better every time I work on it. More features are coming soon! These include:
+- Timer
+- High Scores
+- Random Puzzle Generator (Algorithm-sourced or API-sourced) 
+- Creation of JAR
 
 ### Past Versions
 #### GUI Main Display
