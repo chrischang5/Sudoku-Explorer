@@ -70,10 +70,12 @@ Using IntelliJ IDEA's project explorer, navigate to ```src\main\SudokuGrid.java`
 
 ### Using the Program
 ___
+![alt-text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/mainDisplay.png)
 
-The program currently comes pre-programmed with three puzzles. While the first two are elementary, the last one is sourced from [this research paper](http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html)
+The program currently comes pre-programmed with three puzzles. While the first two are elementary, the last one is sourced from [this research paper](http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html).
 
-#### Main Display
+### Selecting Puzzles
+The dropdown menu
 
 
 
