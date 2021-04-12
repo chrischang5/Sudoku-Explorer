@@ -8,9 +8,9 @@ This document details information on how to run, modify, and explore the code th
 ___
 ### Prerequisites
 
-- Java SE 14 or above (https://www.oracle.com/ca-en/java/technologies/javase/jdk14-archive-downloads.html)
-- Git Version Control (https://git-scm.com/downloads)
-- IntelliJ IDEA Community or IntelliJ IDEA Ultimate (https://www.jetbrains.com/idea/download/#section=windows)
+- [Java SE 14 or above] (https://www.oracle.com/ca-en/java/technologies/javase/jdk14-archive-downloads.html)
+- [Git Version Control] (https://git-scm.com/downloads)
+- [IntelliJ IDEA Community] (https://www.jetbrains.com/idea/download/#section=windows)or [IntelliJ IDEA Ultimate] (https://www.jetbrains.com/idea/download/#section=windows)
 
 Open up the terminal or command prompt and execute the following commands to check your installation:
 
@@ -71,8 +71,9 @@ Using IntelliJ IDEA's project explorer, navigate to ```src\main\SudokuGrid.java`
 ### Using the Program
 ___
 
-The program currently comes pre-programmed with three puzzles. While the first two are elementary, the last one is sourced from [this research paper]:http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html
+The program currently comes pre-programmed with three puzzles. While the first two are elementary, the last one is sourced from [this research paper](http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html)
 
+#### Main Display
 
 
 
