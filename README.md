@@ -75,17 +75,17 @@ ___
 The following section details how to use the program and interact with the GUI elements.
 
 #### Selecting Puzzles
-![alt_text](![alt-text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/dropdownMenu.png)
+![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/dropdownMenu.png)
 The dropdown menu displays the available puzzles in the GUI. The program currently comes pre-programmed with three puzzles. While the first two are elementary, the last one is sourced from [this research paper](http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html). Even with more difficult puzzles, the Sudoku Solver will be able to find a solution!
 
 Choose any of the listed puzzles in the dropdown menu. Once chosen, the result is displayed on the grid! Note that shaded cells cannot be changed by the player.
 
-![alt_text](![alt-text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/puzzle0demo.png)
+![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/puzzle0demo.png)
 
 #### Playing with Puzzles
 The non-shaded cells are yours to interact with! Enter your guesses in the form of numbers by first selecting the cell, then typing your guess.
 
-![alt_text](![alt-text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/interactive_boxes.png)
+![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/interactive_boxes.png)
 
 ### Past Versions
 #### GUI Main Display
