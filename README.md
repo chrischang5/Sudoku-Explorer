@@ -98,7 +98,7 @@ At any point, click the ```Check Puzzle``` button to determine whether your gues
 #### Solve Button
 At any point, click the ```Solve Button``` button to mark your work. The display will mark any solved computer-generated values as Blue, mark any correct guess Green, and mark any wrong guess Red.
 
-![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/solvepuzzleResult.png)
+![alt_text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/solvedpuzzle.png)
 
 #### Reset Button
 At any point, click the ```Reset Button``` button to clear your work and reset the puzzle.
