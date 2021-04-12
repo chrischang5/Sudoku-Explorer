@@ -10,7 +10,7 @@ ___
 
 - [Java SE 14 or above](https://www.oracle.com/ca-en/java/technologies/javase/jdk14-archive-downloads.html)
 - [Git Version Control](https://git-scm.com/downloads)
-- [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/#section=windows)or [IntelliJ IDEA Ultimate] (https://www.jetbrains.com/idea/download/#section=windows)
+- [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/#section=windows) or [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/download/#section=windows)
 
 Open up the terminal or command prompt and execute the following commands to check your installation:
 
