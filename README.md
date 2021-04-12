@@ -79,13 +79,13 @@ The program currently comes pre-programmed with three puzzles. While the first t
 
 ### Past Versions
 #### GUI Main Display
-![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/unsolvedpuzzle.png?raw=true)
+![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/V1/unsolvedpuzzle.png?raw=true)
 
 #### Dropdown Puzzle Select
-![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/puzzleselect.png?raw=true)
+![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/V1/puzzleselect.png?raw=true)
 
 #### Multiple Puzzle Support
-![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/unsolvedpuzzle2.png?raw=true)
+![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/V1/unsolvedpuzzle2.png?raw=true)
 
 #### Generating Sudoku Solutions
-![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/solvedpuzzle.png?raw=true)
+![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/V1/solvedpuzzle.png?raw=true)
