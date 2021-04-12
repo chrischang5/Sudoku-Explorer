@@ -24,13 +24,13 @@ The above command should return a version number if you have Git installed.
 - Check your Java installation by running:
 
 ```bash
-
 java -version
-'''
+```
 
 ```bash
 javac -version
 ```
+
 Both commands should output a version number matching the version selected on Oracle's Java installation. For instance, installing Java SE 14 and running the commands may get you the following outputs. Notice the output "14.0.2" is reasonable since Java SE 14 was version that was installed.
 Input:
 ```bash
