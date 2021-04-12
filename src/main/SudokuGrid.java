@@ -190,19 +190,22 @@ public class SudokuGrid extends JPanel implements ItemListener {
 
             @Override
             public void setSelectedItem(Object obj) {
-                if (!NOT_SELECTABLE_OPTION.equals(obj)) {
-                    super.setSelectedItem(obj);
-                } else if (selectionAllowed) {
-                    selectionAllowed = false;
-                    for (int r = 0; r < GRID_ROWS; r++) {
-                        for (int c = 0; c < GRID_COLS; c++) {
-                            jTextFields[r][c].setEditable(false);
+                if (!PUZZLES[4].equals(obj)) {
+                    if (!NOT_SELECTABLE_OPTION.equals(obj)) {
+                        super.setSelectedItem(obj);
+                    } else if (selectionAllowed) {
+                        selectionAllowed = false;
+                        for (int r = 0; r < GRID_ROWS; r++) {
+                            for (int c = 0; c < GRID_COLS; c++) {
+                                jTextFields[r][c].setEditable(false);
+                            }
                         }
+                        super.setSelectedItem(obj);
                     }
-                    super.setSelectedItem(obj);
                 }
             }
         });
+
         for (String i : PUZZLES) {
             puzzleOptions.addItem(i);
         }
