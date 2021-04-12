@@ -1,6 +1,6 @@
 # Sudoku-Solver-GUI
 
-Welcome to my Sudoku Solver GUI! This project was done to learn about the Java Swing GUI library, how to write event handlers, and to explore the game of Sudoku. After all, I was never the best at Sudoku, so I got a computer to solve them for me.
+Welcome to my Sudoku Solver GUI! This project was done to learn about the Java Swing Graphical User Interface (GUI) library and to explore the game of Sudoku. After all, I was never the best at Sudoku, so I got a computer to solve them for me.
 
 This document details information on how to run, modify, and explore the code that made this application a reality. Currently, a JAR executable file is not avaiable, as more additions will be added to this project in the future. 
 
@@ -8,9 +8,9 @@ This document details information on how to run, modify, and explore the code th
 ___
 ### Prerequisites
 
-- [Java SE 14 or above] (https://www.oracle.com/ca-en/java/technologies/javase/jdk14-archive-downloads.html)
-- [Git Version Control] (https://git-scm.com/downloads)
-- [IntelliJ IDEA Community] (https://www.jetbrains.com/idea/download/#section=windows)or [IntelliJ IDEA Ultimate] (https://www.jetbrains.com/idea/download/#section=windows)
+- [Java SE 14 or above](https://www.oracle.com/ca-en/java/technologies/javase/jdk14-archive-downloads.html)
+- [Git Version Control](https://git-scm.com/downloads)
+- [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/#section=windows)or [IntelliJ IDEA Ultimate] (https://www.jetbrains.com/idea/download/#section=windows)
 
 Open up the terminal or command prompt and execute the following commands to check your installation:
 
@@ -70,22 +70,30 @@ Using IntelliJ IDEA's project explorer, navigate to ```src\main\SudokuGrid.java`
 
 ### Using the Program
 ___
+![alt-text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/mainDisplay.png)
 
-The program currently comes pre-programmed with three puzzles. While the first two are elementary, the last one is sourced from [this research paper](http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html)
+The following section details how to use the program and interact with the GUI elements.
 
-#### Main Display
+#### Selecting Puzzles
+![alt-text](![alt-text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/dropdownMenu.png)
+The dropdown menu displays the available puzzles in the GUI. The program currently comes pre-programmed with three puzzles. While the first two are elementary, the last one is sourced from [this research paper](http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html). Even with more difficult puzzles, the Sudoku Solver will be able to find a solution!
 
+Choose any of the listed puzzles in the dropdown menu. Once chosen, the result is displayed on the grid! Note that shaded cells cannot be changed by the player 
+![alt-text](![alt-text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/puzzle0demo.png)
 
+#### Playing with Puzzles
+The non-shaded cells are yours to interact with! Enter your guesses in the form of numbers by first selecting the cell, then typing your guess.
+![alt-text](![alt-text](https://github.com/chrischang5/Sudoku-Solver-GUI/blob/main/readme/V2/interactive_boxes.png)
 
 ### Past Versions
 #### GUI Main Display
-![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/unsolvedpuzzle.png?raw=true)
+![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/V1/unsolvedpuzzle.png?raw=true)
 
 #### Dropdown Puzzle Select
-![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/puzzleselect.png?raw=true)
+![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/V1/puzzleselect.png?raw=true)
 
 #### Multiple Puzzle Support
-![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/unsolvedpuzzle2.png?raw=true)
+![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/V1/unsolvedpuzzle2.png?raw=true)
 
 #### Generating Sudoku Solutions
-![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/solvedpuzzle.png?raw=true)
+![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/V1/solvedpuzzle.png?raw=true)
