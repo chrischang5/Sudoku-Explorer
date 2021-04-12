@@ -3,9 +3,9 @@
 Welcome to my Sudoku Solver GUI! This project was done to learn about the Java Swing GUI library, how to write event handlers, and to explore the game of Sudoku. After all, I was never the best at Sudoku, so I got a computer to solve them for me.
 
 This document details information on how to run, modify, and explore the code that made this application a reality. Currently, a JAR executable file is not avaiable, as more additions will be added to this project in the future. 
-___
-## Getting Started
 
+## Getting Started
+___
 ### Prerequisites
 
 - Java SE 14 or above (https://www.oracle.com/ca-en/java/technologies/javase/jdk14-archive-downloads.html)
@@ -54,6 +54,7 @@ javac 14.0.2
 ```
 
 ### Installation
+___
 1. Clone the application repository into any directory of your choosing by running using Git Bash
 ```bash
   git clone https://github.com/chrischang5/Sudoku-Solver-GUI.git
@@ -64,13 +65,17 @@ javac 14.0.2
 - Select File > Open, navigate to the "Sudoku-Solver-GUI" folder and select it.
 
 ### Running
+___
+Using IntelliJ IDEA's project explorer, navigate to ```src\main\SudokuGrid.java```. Run it by using the keyboard shortcut ```Ctrl + Shift + F10``` or by navigating to the ```SudokuTest.java```, right clicking, and selecting Run marked with a green play button.
 
 ### Key Features
+___
 
 
 
 
-### Past Features
+
+### Past Versions
 #### GUI Main Display
 ![alt text](https://github.com/chrischang5/Sudoku-Explorer/blob/main/readme/unsolvedpuzzle.png?raw=true)
 
