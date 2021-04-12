@@ -1,24 +1,26 @@
+package main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
- * SudokuGrid class represents the GUI and contains any method responsible for creating user elements
+ * main.SudokuGrid class represents the GUI and contains any method responsible for creating user elements
  * or displaying GUI components
  */
 
 public class SudokuGrid extends JPanel implements ItemListener {
     private static final Color BG = Color.BLACK;
     private static final String NOT_SELECTABLE_OPTION = "- Select a Puzzle -";
+    // Breakthrough puzzle source: http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html
+        // 9734 solutions!
     private static final String[] PUZZLES =
-        {NOT_SELECTABLE_OPTION, "src/puzzles/puzzle0.txt", "src/puzzles/puzzle1.txt",
-            "Generate a puzzle!"};
+        {NOT_SELECTABLE_OPTION, "src/main/resources/puzzle0.txt", "src/main/resources/puzzle1.txt", "src/main/resources/breakthrough.txt",
+            "Generate a puzzle! (Coming Soon!)"};
     public Board board;
     private static final int CLUSTER = 3;
     private static final int GAP = 3;
@@ -31,15 +33,8 @@ public class SudokuGrid extends JPanel implements ItemListener {
     private JTextField[][] jTextFields = new JTextField[GRID_ROWS][GRID_COLS];
     private String currentPuzzleFileName;
 
-    //Predefined puzzle
-//    private int[][] puzzle1 =
-//        {{5, 3, 0, 0, 7, 0, 0, 0, 0}, {6, 0, 0, 1, 9, 5, 0, 0, 0}, {0, 9, 8, 0, 0, 0, 0, 6, 0},
-//            {8, 0, 0, 0, 6, 0, 0, 0, 3}, {4, 0, 0, 8, 0, 3, 0, 0, 1}, {7, 0, 0, 0, 2, 0, 0, 0, 6},
-//            {0, 6, 0, 0, 0, 0, 2, 8, 0}, {0, 0, 0, 4, 1, 9, 0, 0, 5},
-//            {0, 0, 0, 0, 8, 0, 0, 7, 9}};
-
     /**
-     * Effect: A constructor to create a SudokuGrid Object
+     * Effect: A constructor to create a main.SudokuGrid Object
      * <p>
      * Code sourced from: https://stackoverflow.com/questions/36380516/drawing-a-grid-in-a-jframe
      */
@@ -92,13 +87,13 @@ public class SudokuGrid extends JPanel implements ItemListener {
         GridBagConstraints c2 = new GridBagConstraints();
         c2.gridx = 0;
         c2.gridy = 0;
-        c2.fill = c2.HORIZONTAL;
+        c2.fill = GridBagConstraints.HORIZONTAL;
         c2.insets = new Insets(0, 0, 0, 0);
         mainPanel.add(comboBox, c2);
 
         GridBagConstraints c1 = new GridBagConstraints();
-        c1.anchor = c1.FIRST_LINE_START;
-        c1.fill = c1.BOTH;
+        c1.anchor = GridBagConstraints.FIRST_LINE_START;
+        c1.fill = GridBagConstraints.BOTH;
         c1.insets = new Insets(0, 0, 1, 0);
         c1.weightx = 100;
         c1.weighty = 100;
@@ -107,7 +102,7 @@ public class SudokuGrid extends JPanel implements ItemListener {
         mainPanel.add(panel, c1);
 
         GridBagConstraints c3 = new GridBagConstraints();
-        c3.anchor = c3.WEST;
+        c3.anchor = GridBagConstraints.WEST;
         c3.gridx = 0;
         c3.gridy = 2;
         c3.insets = new Insets(5, 5, 5, 0);
@@ -115,14 +110,14 @@ public class SudokuGrid extends JPanel implements ItemListener {
         mainPanel.add(checkButton, c3);
 
         GridBagConstraints c4 = new GridBagConstraints();
-        c4.anchor = c4.CENTER;
+        c4.anchor = GridBagConstraints.CENTER;
         c4.gridx = 0;
         c4.gridy = 2;
         c4.insets = new Insets(5, 0, 5, 0);
         mainPanel.add(solveButton, c4);
 
         GridBagConstraints c5 = new GridBagConstraints();
-        c4.anchor = c4.EAST;
+        c4.anchor = GridBagConstraints.EAST;
         c4.gridx = 0;
         c4.gridy = 2;
         c4.insets = new Insets(5, 0, 5, 5);
@@ -130,7 +125,7 @@ public class SudokuGrid extends JPanel implements ItemListener {
     }
 
     /**
-     * Effect: Construct a GUI consisting of a JFrame object and SudokuGrid object
+     * Effect: Construct a GUI consisting of a JFrame object and main.SudokuGrid object
      *
      * @throws BadArgumentExpection if initialization fails
      */
@@ -330,9 +325,7 @@ public class SudokuGrid extends JPanel implements ItemListener {
         }
     }
 
-    /**
-     * EVENT HANDLERS
-     */
+     // EVENT HANDLERS
 
     /**
      * Invoked when an item has been selected or deselected by the user.
@@ -352,7 +345,7 @@ public class SudokuGrid extends JPanel implements ItemListener {
             try {
                 currentPuzzleFileName = item.toString();
                 board.readAndSetPuzzle(currentPuzzleFileName);
-            } catch (IOException | BadArgumentExpection | InvalidPuzzleException ioException) {
+            } catch (IOException | BadArgumentExpection | InvalidPuzzleException | ClassNotFoundException ioException) {
                 ioException.printStackTrace();
             } finally {
                 initializePuzzle();

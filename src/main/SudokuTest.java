@@ -1,15 +1,10 @@
-import org.junit.Assert;
+package main;
+
 import org.junit.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Objects;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.junit.Assert.*;
-
 
 public class SudokuTest {
 
@@ -142,7 +137,7 @@ public class SudokuTest {
     public void testPossible4() {
         Board board = new Board();
         board.set(3, 1, 3);
-        assertTrue(board.possible(1, 3, 3));
+        assertFalse(board.possible(1, 3, 3));
     }
 
     /**
@@ -227,14 +222,15 @@ public class SudokuTest {
     /**
      * Test readAndSetPuzzle() method which reads and sets the puzzle
      *
-     *  @throws BadArgumentExpection   If initialization fails due to invalid argument in file
-     *  @throws IOException            If file read fails
-     *  @throws InvalidPuzzleException If puzzle is not of the right format
+     * @throws BadArgumentExpection   If initialization fails due to invalid argument in file
+     * @throws IOException            If file read fails
+     * @throws InvalidPuzzleException If puzzle is not of the right format
      */
     @Test
-    public void testReadAndSetPuzzle2() throws IOException, InvalidPuzzleException, BadArgumentExpection {
-        String puzzleName0 = "puzzles/puzzle0.txt";
-        String puzzleName1 = "puzzles/puzzle1.txt";
+    public void testReadAndSetPuzzle2()
+        throws IOException, InvalidPuzzleException, BadArgumentExpection, ClassNotFoundException {
+        String puzzleName0 = "src/main/resources/puzzle0.txt";
+        String puzzleName1 = "src/main/resources/puzzle1.txt";
         Board board0 = new Board();
         Board board1 = new Board();
 
@@ -246,7 +242,6 @@ public class SudokuTest {
 
 
     /**
-
      * Compares the result of the Sudoku solving algorithm to an expected result
      *
      * @throws BadArgumentExpection   If initialization fails due to invalid argument in file
@@ -254,13 +249,14 @@ public class SudokuTest {
      * @throws InvalidPuzzleException If puzzle is not of the right format
      */
     @Test
-    public void testSolve1() throws BadArgumentExpection, IOException, InvalidPuzzleException {
-        String puzzle = "puzzles/puzzle2modified.txt";
+    public void testSolve1()
+        throws BadArgumentExpection, IOException, InvalidPuzzleException, ClassNotFoundException {
+        String puzzle = "src/main/resources/puzzle2modified.txt";
         Board board0 = new Board();
         board0.readAndSetPuzzle(puzzle);
 
         Board expectedOutput = new Board();
-        expectedOutput.readAndSetPuzzle("puzzles/puzzle2solution.txt");
+        expectedOutput.readAndSetPuzzle("src/main/resources/puzzle2solution.txt");
         board0.backtrackSolve();
         board0.printBoard();
         System.out.println();
@@ -277,13 +273,14 @@ public class SudokuTest {
      * @throws InvalidPuzzleException If puzzle is not of the right format
      */
     @Test
-    public void testSolve2() throws BadArgumentExpection, IOException, InvalidPuzzleException {
-        String puzzle = "puzzles/puzzle2.txt";
+    public void testSolve2()
+        throws BadArgumentExpection, IOException, InvalidPuzzleException, ClassNotFoundException {
+        String puzzle = "src/main/resources/puzzle2.txt";
         Board board0 = new Board();
         board0.readAndSetPuzzle(puzzle);
 
         Board expectedOutput = new Board();
-        expectedOutput.readAndSetPuzzle("puzzles/puzzle2solution.txt");
+        expectedOutput.readAndSetPuzzle("src/main/resources/puzzle2solution.txt");
         board0.backtrackSolve();
         board0.printBoard();
         System.out.println();
@@ -294,7 +291,7 @@ public class SudokuTest {
 
 
     /**
-     * Compares an inequality between a non-Board object and a Board object
+     * Compares an inequality between a non-main.Board object and a main.Board object
      */
     @Test
     public void testInequality() {

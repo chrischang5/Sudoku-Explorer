@@ -1,13 +1,14 @@
-import javax.swing.JTextField;
+package main;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
+
 
 /**
- * The Board class contains all methods that interact with the internal representation of the Sudoku board
+ * The main.Board class contains all methods that interact with the internal representation of the Sudoku board
  */
 public class Board {
 
@@ -27,21 +28,19 @@ public class Board {
         new ArrayList<>(Arrays
             .asList(BLANK_CHAR, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
                 EMPTY_SPACE_REP));
-    //Board Constants
+    //main.Board Constants
     private static final int BOARD_EXPECTED_LENGTH = 81;
     private static final int GRID_ROWS = 9;
     private static final int GRID_COLS = 9;
     private static final int AREA_SIZE = 3;
 
-    //Board representation and status
+    //main.Board representation and status
     private int[][] cells;
     private boolean solved;
 
 
-
-
     /**
-     * Effect: Creates a new instance of a Board object
+     * Effect: Creates a new instance of a main.Board object
      */
     public Board() {
         this.cells = new int[GRID_ROWS][GRID_COLS];
@@ -50,7 +49,7 @@ public class Board {
     }
 
     /**
-     * Effect: Resets Board to contain empty cells
+     * Effect: Resets main.Board to contain empty cells
      */
 
     private void resetBoard() {
@@ -135,7 +134,7 @@ public class Board {
     }
 
     /**
-     * Effect: Sets the index at (row, col) on the Board to the parameter argumemt specified
+     * Effect: Sets the index at (row, col) on the main.Board to the parameter argumemt specified
      *
      * @param argument The character representing the number to be set at cell row, col
      * @param row      The row number in terms of Array indices
@@ -157,11 +156,13 @@ public class Board {
      */
 
     public void readAndSetPuzzle(String fileName)
-        throws IOException, BadArgumentExpection, InvalidPuzzleException {
+        throws IOException, BadArgumentExpection, InvalidPuzzleException, ClassNotFoundException {
         String contentString = new String(Files.readAllBytes(Paths.get(fileName)));
         contentString = contentString.replaceAll("[\n|\r]", "");
         int[] contentArray = contentString.chars().map(x -> (x - '0')).toArray();
+
         resetBoard();
+
 
         if (contentArray.length != BOARD_EXPECTED_LENGTH) {
             throw new InvalidPuzzleException("Invalid puzzle. Puzzle is not of the right format.");
@@ -183,7 +184,7 @@ public class Board {
     }
 
     /**
-     * Effect: Returns the integer argument at (row, col) on the Board
+     * Effect: Returns the integer argument at (row, col) on the main.Board
      *
      * @param row The row number in terms of Array indices
      * @param col The col number in terms of Array indices
@@ -227,8 +228,8 @@ public class Board {
     /**
      * Effect: Compares two board objects
      *
-     * @param o An object to compare the current Board to
-     * @return True if Object o is instance of Board, has same solved status, and all cells have same contents
+     * @param o An object to compare the current main.Board to
+     * @return True if Object o is instance of main.Board, has same solved status, and all cells have same contents
      */
 
     @Override
