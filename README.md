@@ -32,7 +32,7 @@ java -version
 javac -version
 ```
 
-Both commands should output a version number matching the version selected on Oracle's Java installation. The following outputs were received on a machine with Java SE 14 installed.
+Both commands should output a version number matching the version selected during the Java installation. The following outputs were received on a machine with Java SE 14 installed.
 
 Input:
 ```bash
@@ -68,9 +68,10 @@ ___
 ___
 Using IntelliJ IDEA's project explorer, navigate to ```src\main\SudokuGrid.java```. Run it by using the keyboard shortcut ```Ctrl + Shift + F10``` or by navigating to the ```SudokuTest.java```, right clicking, and selecting Run marked with a green play button.
 
-### Key Features
+### Using the Program
 ___
 
+The program currently comes pre-programmed with three puzzles. While the first two are elementary, the last one is sourced from [this research paper]:http://blogs.nature.com/news/2012/01/mathematician-claims-breakthrough-in-sudoku-mathematics.html
 
 
 
