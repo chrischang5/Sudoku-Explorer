@@ -35,18 +35,19 @@ Both commands should output a version number matching the version selected on Or
 Input:
 ```bash
 java -version
-'''
+```
 Output:
-'''bash
+```bash
 java version "14.0.2" 2020-07-14
 Java(TM) SE Runtime Environment (build 14.0.2+12-46)
 Java HotSpot(TM) 64-Bit Server VM (build 14.0.2+12-46, mixed mode, sharing)
-'''
+```
+Input
 ```bash
 javac -version
-'''
+```
 Output:
-'''bash
+```bash
 javac 14.0.2
 ```
 
